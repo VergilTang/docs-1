@@ -8,17 +8,23 @@ Class **Phalcon\\Mvc\\Url**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/mvc/url.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This components helps in the generation of: URIs, URLs and Paths  
+This components helps in the generation of: URIs, URLs and Paths
 
 .. code-block:: php
 
     <?php
 
-     //Generate a URL appending the URI to the base URI
-     echo $url->get('products/edit/1');
-    
-     //Generate a URL for a predefined route
-     echo $url->get(array('for' => 'blog-post', 'title' => 'some-cool-stuff', 'year' => '2012'));
+    // Generate a URL appending the URI to the base URI
+    echo $url->get("products/edit/1");
+
+    // Generate a URL for a predefined route
+    echo $url->get(
+        [
+            "for"   => "blog-post",
+            "title" => "some-cool-stuff",
+            "year"  => "2012",
+        ]
+    );
 
 
 
@@ -37,29 +43,30 @@ Returns the DependencyInjector container
 
 
 
-public  **setBaseUri** (*unknown* $baseUri)
+public  **setBaseUri** (*mixed* $baseUri)
 
-Sets a prefix for all the URIs to be generated 
-
-.. code-block:: php
-
-    <?php
-
-    $url->setBaseUri('/invo/');
-    $url->setBaseUri('/invo/index.php/');
-
-
-
-
-public  **setStaticBaseUri** (*unknown* $staticBaseUri)
-
-Sets a prefix for all static URLs generated 
+Sets a prefix for all the URIs to be generated
 
 .. code-block:: php
 
     <?php
 
-    $url->setStaticBaseUri('/invo/');
+    $url->setBaseUri("/invo/");
+
+    $url->setBaseUri("/invo/index.php/");
+
+
+
+
+public  **setStaticBaseUri** (*mixed* $staticBaseUri)
+
+Sets a prefix for all static URLs generated
+
+.. code-block:: php
+
+    <?php
+
+    $url->setStaticBaseUri("/invo/");
 
 
 
@@ -76,15 +83,15 @@ Returns the prefix for all the generated static urls. By default /
 
 
 
-public  **setBasePath** (*unknown* $basePath)
+public  **setBasePath** (*mixed* $basePath)
 
-Sets a base path for all the generated paths 
+Sets a base path for all the generated paths
 
 .. code-block:: php
 
     <?php
 
-    $url->setBasePath('/var/www/htdocs/');
+    $url->setBasePath("/var/www/htdocs/");
 
 
 
@@ -95,41 +102,67 @@ Returns the base path
 
 
 
-public  **get** ([*unknown* $uri], [*unknown* $args], [*unknown* $local], [*unknown* $baseUri])
+public  **get** ([*mixed* $uri], [*mixed* $args], [*mixed* $local], [*mixed* $baseUri])
 
-Generates a URL 
-
-.. code-block:: php
-
-    <?php
-
-     //Generate a URL appending the URI to the base URI
-     echo $url->get('products/edit/1');
-    
-     //Generate a URL for a predefined route
-     echo $url->get(array('for' => 'blog-post', 'title' => 'some-cool-stuff', 'year' => '2015'));
-
-
-
-
-public  **getStatic** ([*unknown* $uri])
-
-Generates a URL for a static resource 
+Generates a URL
 
 .. code-block:: php
 
     <?php
 
-     // Generate a URL for a static resource
-     echo $url->getStatic("img/logo.png");
-    
-     // Generate a URL for a static predefined route
-     echo $url->getStatic(array('for' => 'logo-cdn'));
+    // Generate a URL appending the URI to the base URI
+    echo $url->get("products/edit/1");
+
+    // Generate a URL for a predefined route
+    echo $url->get(
+        [
+            "for"   => "blog-post",
+            "title" => "some-cool-stuff",
+            "year"  => "2015",
+        ]
+    );
+
+    // Generate a URL with GET arguments (/show/products?id=1&name=Carrots)
+    echo $url->get(
+        "show/products",
+        [
+            "id"   => 1,
+            "name" => "Carrots",
+        ]
+    );
+
+    // Generate an absolute URL by setting the third parameter as false.
+    echo $url->get(
+        "https://phalconphp.com/",
+        null,
+        false
+    );
 
 
 
 
-public  **path** ([*unknown* $path])
+public  **getStatic** ([*mixed* $uri])
+
+Generates a URL for a static resource
+
+.. code-block:: php
+
+    <?php
+
+    // Generate a URL for a static resource
+    echo $url->getStatic("img/logo.png");
+
+    // Generate a URL for a static predefined route
+    echo $url->getStatic(
+        [
+            "for" => "logo-cdn",
+        ]
+    );
+
+
+
+
+public  **path** ([*mixed* $path])
 
 Generates a local path
 

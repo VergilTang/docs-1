@@ -8,15 +8,19 @@ Class **Phalcon\\Http\\Response**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/http/response.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Part of the HTTP cycle is return responses to the clients. Phalcon\\HTTP\\Response is the Phalcon component responsible to achieve this task. HTTP responses are usually composed by headers and body.  
+Part of the HTTP cycle is return responses to the clients.
+Phalcon\\HTTP\\Response is the Phalcon component responsible to achieve this task.
+HTTP responses are usually composed by headers and body.
 
 .. code-block:: php
 
     <?php
 
     $response = new \Phalcon\Http\Response();
+
     $response->setStatusCode(200, "OK");
     $response->setContent("<html><body>Hello</body></html>");
+
     $response->send();
 
 
@@ -24,7 +28,7 @@ Part of the HTTP cycle is return responses to the clients. Phalcon\\HTTP\\Respon
 Methods
 -------
 
-public  **__construct** ([*string* $content], [*int* $code], [*string* $status])
+public  **__construct** ([*mixed* $content], [*mixed* $code], [*mixed* $status])
 
 Phalcon\\Http\\Response constructor
 
@@ -42,9 +46,9 @@ Returns the internal dependency injector
 
 
 
-public  **setStatusCode** (*unknown* $code, [*unknown* $message])
+public  **setStatusCode** (*mixed* $code, [*mixed* $message])
 
-Sets the HTTP response code 
+Sets the HTTP response code
 
 .. code-block:: php
 
@@ -57,13 +61,15 @@ Sets the HTTP response code
 
 public  **getStatusCode** ()
 
-Returns the status code 
+Returns the status code
 
 .. code-block:: php
 
     <?php
 
-    print_r($response->getStatusCode());
+    print_r(
+        $response->getStatusCode()
+    );
 
 
 
@@ -86,15 +92,15 @@ Sets a cookies bag for the response externally
 
 
 
-public :doc:`Phalcon\\Http\\Response\\CookiesInterface <Phalcon_Http_Response_CookiesInterface>`  **getCookies** ()
+public :doc:`Phalcon\\Http\\Response\\CookiesInterface <Phalcon_Http_Response_CookiesInterface>` **getCookies** ()
 
-Returns coookies set by the user
+Returns cookies set by the user
 
 
 
-public :doc:`Phalcon\\Http\\Response <Phalcon_Http_Response>`  **setHeader** (*string* $name, *string* $value)
+public  **setHeader** (*mixed* $name, *mixed* $value)
 
-Overwrites a header in the response 
+Overwrites a header in the response
 
 .. code-block:: php
 
@@ -105,9 +111,9 @@ Overwrites a header in the response
 
 
 
-public  **setRawHeader** (*unknown* $header)
+public  **setRawHeader** (*mixed* $header)
 
-Send a raw header to the response 
+Send a raw header to the response
 
 .. code-block:: php
 
@@ -120,26 +126,43 @@ Send a raw header to the response
 
 public  **resetHeaders** ()
 
-Resets all the stablished headers
+Resets all the established headers
 
 
 
-public  **setExpires** (*DateTime* $datetime)
+public  **setExpires** (`DateTime <http://php.net/manual/en/class.datetime.php>`_ $datetime)
 
-Sets a Expires header to use HTTP cache 
+Sets an Expires header in the response that allows to use the HTTP cache
 
 .. code-block:: php
 
     <?php
 
-    $this->response->setExpires(new DateTime());
+    $this->response->setExpires(
+        new DateTime()
+    );
 
 
 
 
-public  **setCache** (*unknown* $minutes)
+public  **setLastModified** (`DateTime <http://php.net/manual/en/class.datetime.php>`_ $datetime)
 
-Sets Cache headers to use HTTP cache 
+Sets Last-Modified header
+
+.. code-block:: php
+
+    <?php
+
+    $this->response->setLastModified(
+        new DateTime()
+    );
+
+
+
+
+public  **setCache** (*mixed* $minutes)
+
+Sets Cache headers to use HTTP cache
 
 .. code-block:: php
 
@@ -156,23 +179,36 @@ Sends a Not-Modified response
 
 
 
-public :doc:`Phalcon\\Http\\Response <Phalcon_Http_Response>`  **setContentType** (*string* $contentType, [*string* $charset])
+public  **setContentType** (*mixed* $contentType, [*mixed* $charset])
 
-Sets the response content-type mime, optionally the charset 
+Sets the response content-type mime, optionally the charset
 
 .. code-block:: php
 
     <?php
 
-    $response->setContentType('application/pdf');
-    $response->setContentType('text/plain', 'UTF-8');
+    $response->setContentType("application/pdf");
+    $response->setContentType("text/plain", "UTF-8");
 
 
 
 
-public  **setEtag** (*unknown* $etag)
+public  **setContentLength** (*mixed* $contentLength)
 
-Set a custom ETag 
+Sets the response content-length
+
+.. code-block:: php
+
+    <?php
+
+    $response->setContentLength(2048);
+
+
+
+
+public  **setEtag** (*mixed* $etag)
+
+Set a custom ETag
 
 .. code-block:: php
 
@@ -183,56 +219,63 @@ Set a custom ETag
 
 
 
-public :doc:`Phalcon\\Http\\Response <Phalcon_Http_Response>`  **redirect** ([*string|array* $location], [*boolean* $externalRedirect], [*int* $statusCode])
+public  **redirect** ([*mixed* $location], [*mixed* $externalRedirect], [*mixed* $statusCode])
 
-Redirect by HTTP to another action or URL 
+Redirect by HTTP to another action or URL
 
 .. code-block:: php
 
     <?php
 
-      //Using a string redirect (internal/external)
+    // Using a string redirect (internal/external)
     $response->redirect("posts/index");
     $response->redirect("http://en.wikipedia.org", true);
     $response->redirect("http://www.example.com/new-location", true, 301);
-    
-    //Making a redirection based on a named route
-    $response->redirect(array(
-    	"for" => "index-lang",
-    	"lang" => "jp",
-    	"controller" => "index"
-    ));
+
+    // Making a redirection based on a named route
+    $response->redirect(
+        [
+            "for"        => "index-lang",
+            "lang"       => "jp",
+            "controller" => "index",
+        ]
+    );
 
 
 
 
-public  **setContent** (*unknown* $content)
+public  **setContent** (*mixed* $content)
 
-Sets HTTP response body 
-
-.. code-block:: php
-
-    <?php
-
-    response->setContent("<h1>Hello!</h1>");
-
-
-
-
-public :doc:`Phalcon\\Http\\Response <Phalcon_Http_Response>`  **setJsonContent** (*mixed* $content, [*int* $jsonOptions], [*unknown* $depth])
-
-Sets HTTP response body. The parameter is automatically converted to JSON 
+Sets HTTP response body
 
 .. code-block:: php
 
     <?php
 
-    $response->setJsonContent(array("status" => "OK"));
+    $response->setContent("<h1>Hello!</h1>");
 
 
 
 
-public :doc:`Phalcon\\Http\\Response <Phalcon_Http_Response>`  **appendContent** (*string* $content)
+public  **setJsonContent** (*mixed* $content, [*mixed* $jsonOptions], [*mixed* $depth])
+
+Sets HTTP response body. The parameter is automatically converted to JSON
+and also sets default header: Content-Type: "application/json; charset=UTF-8"
+
+.. code-block:: php
+
+    <?php
+
+    $response->setJsonContent(
+        [
+            "status" => "OK",
+        ]
+    );
+
+
+
+
+public  **appendContent** (*mixed* $content)
 
 Appends a string to the HTTP response body
 
@@ -268,7 +311,7 @@ Prints out HTTP response to the client
 
 
 
-public :doc:`Phalcon\\Http\\Response <Phalcon_Http_Response>`  **setFileToSend** (*string* $filePath, [*string* $attachmentName], [*unknown* $attachment])
+public  **setFileToSend** (*mixed* $filePath, [*mixed* $attachmentName], [*mixed* $attachment])
 
 Sets an attached file to be sent at the end of the request
 

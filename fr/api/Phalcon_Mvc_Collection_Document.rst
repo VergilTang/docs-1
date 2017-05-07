@@ -1,32 +1,33 @@
 Class **Phalcon\\Mvc\\Collection\\Document**
 ============================================
 
-*implements* :doc:`Phalcon\\Mvc\\EntityInterface <Phalcon_Mvc_EntityInterface>`, ArrayAccess
+*implements* :doc:`Phalcon\\Mvc\\EntityInterface <Phalcon_Mvc_EntityInterface>`, `ArrayAccess <http://php.net/manual/en/class.arrayaccess.php>`_
 
 .. role:: raw-html(raw)
    :format: html
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/mvc/collection/document.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This component allows Phalcon\\Mvc\\Collection to return rows without an associated entity. This objects implements the ArrayAccess interface to allow access the object as object->x or array[x].
+This component allows Phalcon\\Mvc\\Collection to return rows without an associated entity.
+This objects implements the ArrayAccess interface to allow access the object as object->x or array[x].
 
 
 Methods
 -------
 
-public *boolean*  **offsetExists** (*int* $index)
+public *boolean* **offsetExists** (*int* $index)
 
 Checks whether an offset exists in the document
 
 
 
-public  **offsetGet** (*unknown* $index)
+public  **offsetGet** (*mixed* $index)
 
 Returns the value of a field using the ArrayAccess interfase
 
 
 
-public  **offsetSet** (*unknown* $index, *unknown* $value)
+public  **offsetSet** (*mixed* $index, *mixed* $value)
 
 Change a value using the ArrayAccess interface
 
@@ -38,33 +39,33 @@ Rows cannot be changed. It has only been implemented to meet the definition of t
 
 
 
-public *mixed*  **readAttribute** (*string* $attribute)
+public *mixed* **readAttribute** (*string* $attribute)
 
-Reads an attribute value by its name 
+Reads an attribute value by its name
 
 .. code-block:: php
 
     <?php
 
-      echo $robot->readAttribute('name');
+     echo $robot->readAttribute("name");
 
 
 
 
 public  **writeAttribute** (*string* $attribute, *mixed* $value)
 
-Writes an attribute value by its name 
+Writes an attribute value by its name
 
 .. code-block:: php
 
     <?php
 
-      $robot->writeAttribute('name', 'Rosey');
+     $robot->writeAttribute("name", "Rosey");
 
 
 
 
-public *array*  **toArray** ()
+public *array* **toArray** ()
 
 Returns the instance as an array representation
 

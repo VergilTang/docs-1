@@ -32,13 +32,13 @@ Returns the internal dependency injector
 
 
 
-public :doc:`Phalcon\\Http\\Cookie <Phalcon_Http_Cookie>`  **setValue** (*string* $value)
+public :doc:`Phalcon\\Http\\Cookie <Phalcon_Http_Cookie>` **setValue** (*string* $value)
 
 Sets the cookie's value
 
 
 
-public *mixed*  **getValue** ([*string|array* $filters], [*string* $defaultValue])
+public *mixed* **getValue** ([*string* | *array* $filters], [*string* $defaultValue])
 
 Returns the cookie's value
 
@@ -46,13 +46,15 @@ Returns the cookie's value
 
 public  **send** ()
 
-Sends the cookie to the HTTP client Stores the cookie definition in session
+Sends the cookie to the HTTP client
+Stores the cookie definition in session
 
 
 
 public  **restore** ()
 
-Reads the cookie-related info from the SESSION to restore the cookie as it was set This method is automatically called internally so normally you don't need to call it
+Reads the cookie-related info from the SESSION to restore the cookie as it was set
+This method is automatically called internally so normally you don't need to call it
 
 
 
@@ -62,7 +64,7 @@ Deletes the cookie by setting an expire time in the past
 
 
 
-public  **useEncryption** (*unknown* $useEncryption)
+public  **useEncryption** (*mixed* $useEncryption)
 
 Sets if the cookie must be encrypted/decrypted automatically
 
@@ -74,7 +76,7 @@ Check if the cookie is using implicit encryption
 
 
 
-public  **setExpiration** (*unknown* $expire)
+public  **setExpiration** (*mixed* $expire)
 
 Sets the cookie's expiration time
 
@@ -86,7 +88,7 @@ Returns the current expiration time
 
 
 
-public  **setPath** (*unknown* $path)
+public  **setPath** (*mixed* $path)
 
 Sets the cookie's expiration time
 
@@ -104,7 +106,7 @@ Returns the current cookie's path
 
 
 
-public  **setDomain** (*unknown* $domain)
+public  **setDomain** (*mixed* $domain)
 
 Sets the domain that the cookie is available to
 
@@ -116,7 +118,7 @@ Returns the domain that the cookie is available to
 
 
 
-public  **setSecure** (*unknown* $secure)
+public  **setSecure** (*mixed* $secure)
 
 Sets if the cookie must only be sent when the connection is secure (HTTPS)
 
@@ -128,7 +130,7 @@ Returns whether the cookie must only be sent when the connection is secure (HTTP
 
 
 
-public  **setHttpOnly** (*unknown* $httpOnly)
+public  **setHttpOnly** (*mixed* $httpOnly)
 
 Sets if the cookie is accessible only through the HTTP protocol
 

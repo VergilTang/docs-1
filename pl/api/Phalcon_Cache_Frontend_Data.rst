@@ -8,42 +8,53 @@ Class **Phalcon\\Cache\\Frontend\\Data**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/cache/frontend/data.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Allows to cache native PHP data in a serialized form  
+Allows to cache native PHP data in a serialized form
 
 .. code-block:: php
 
     <?php
 
-    <?php
-    
+    use Phalcon\Cache\Backend\File;
+    use Phalcon\Cache\Frontend\Data;
+
     // Cache the files for 2 days using a Data frontend
-    $frontCache = new \Phalcon\Cache\Frontend\Data(array(
-    	"lifetime" => 172800
-    ));
-    
-    // Create the component that will cache "Data" to a "File" backend
-    // Set the cache file directory - important to keep the "/" at the end of
+    $frontCache = new Data(
+        [
+            "lifetime" => 172800,
+        ]
+    );
+
+    // Create the component that will cache "Data" to a 'File' backend
+    // Set the cache file directory - important to keep the '/' at the end of
     // of the value for the folder
-    $cache = new \Phalcon\Cache\Backend\File($frontCache, array(
-    	"cacheDir" => "../app/cache/"
-    ));
-    
+    $cache = new File(
+        $frontCache,
+        [
+            "cacheDir" => "../app/cache/",
+        ]
+    );
+
+    $cacheKey = "robots_order_id.cache";
+
     // Try to get cached records
-    $cacheKey = 'robots_order_id.cache';
-    $robots    = $cache->get($cacheKey);
+    $robots = $cache->get($cacheKey);
+
     if ($robots === null) {
-    
-    	// $robots is null due to cache expiration or data does not exist
-    	// Make the database call and populate the variable
-    	$robots = Robots::find(array("order" => "id"));
-    
-    	// Store it in the cache
-    	$cache->save($cacheKey, $robots);
+        // $robots is null due to cache expiration or data does not exist
+        // Make the database call and populate the variable
+        $robots = Robots::find(
+            [
+                "order" => "id",
+            ]
+        );
+
+        // Store it in the cache
+        $cache->save($cacheKey, $robots);
     }
-    
+
     // Use $robots :)
     foreach ($robots as $robot) {
-    	echo $robot->name, "\n";
+        echo $robot->name, "\n";
     }
 
 
@@ -75,7 +86,7 @@ Starts output frontend. Actually, does nothing
 
 
 
-public *string*  **getContent** ()
+public *string* **getContent** ()
 
 Returns output cached content
 
@@ -87,13 +98,13 @@ Stops output frontend
 
 
 
-public  **beforeStore** (*unknown* $data)
+public  **beforeStore** (*mixed* $data)
 
 Serializes data before storing them
 
 
 
-public  **afterRetrieve** (*unknown* $data)
+public  **afterRetrieve** (*mixed* $data)
 
 Unserializes data after retrieval
 

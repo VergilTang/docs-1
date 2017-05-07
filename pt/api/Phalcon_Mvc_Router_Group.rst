@@ -8,54 +8,65 @@ Class **Phalcon\\Mvc\\Router\\Group**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/mvc/router/group.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Helper class to create a group of routes with common attributes  
+Helper class to create a group of routes with common attributes
 
 .. code-block:: php
 
     <?php
 
-     $router = new \Phalcon\Mvc\Router();
-    
-     //Create a group with a common module and controller
-     $blog = new Group(array(
-     	'module' => 'blog',
-     	'controller' => 'index'
-     ));
-    
-     //All the routes start with /blog
-     $blog->setPrefix('/blog');
-    
-     //Add a route to the group
-     $blog->add('/save', array(
-     	'action' => 'save'
-     ));
-    
-     //Add another route to the group
-     $blog->add('/edit/{id}', array(
-     	'action' => 'edit'
-     ));
-    
-     //This route maps to a controller different than the default
-     $blog->add('/blog', array(
-     	'controller' => 'about',
-     	'action' => 'index'
-     ));
-    
-     //Add the group to the router
-     $router->mount($blog);
+    $router = new \Phalcon\Mvc\Router();
+
+    //Create a group with a common module and controller
+    $blog = new Group(
+        [
+            "module"     => "blog",
+            "controller" => "index",
+        ]
+    );
+
+    //All the routes start with /blog
+    $blog->setPrefix("/blog");
+
+    //Add a route to the group
+    $blog->add(
+        "/save",
+        [
+            "action" => "save",
+        ]
+    );
+
+    //Add another route to the group
+    $blog->add(
+        "/edit/{id}",
+        [
+            "action" => "edit",
+        ]
+    );
+
+    //This route maps to a controller different than the default
+    $blog->add(
+        "/blog",
+        [
+            "controller" => "about",
+            "action"     => "index",
+        ]
+    );
+
+    //Add the group to the router
+    $router->mount($blog);
 
 
 
 Methods
 -------
 
-public  **__construct** ([*unknown* $paths])
+public  **__construct** ([*mixed* $paths])
 
 Phalcon\\Mvc\\Router\\Group constructor
 
 
 
-public  **setHostname** (*unknown* $hostname)
+public  **setHostname** (*mixed* $hostname)
 
 Set a hostname restriction for all the routes in the group
 
@@ -67,7 +78,7 @@ Returns the hostname restriction
 
 
 
-public  **setPrefix** (*unknown* $prefix)
+public  **setPrefix** (*mixed* $prefix)
 
 Set a common uri prefix for all the routes in this group
 
@@ -79,9 +90,11 @@ Returns the common prefix for all the routes
 
 
 
-public  **beforeMatch** (*unknown* $beforeMatch)
+public  **beforeMatch** (*mixed* $beforeMatch)
 
-Sets a callback that is called if the route is matched. The developer can implement any arbitrary conditions here If the callback returns false the route is treated as not matched
+Sets a callback that is called if the route is matched.
+The developer can implement any arbitrary conditions here
+If the callback returns false the route is treated as not matched
 
 
 
@@ -91,7 +104,7 @@ Returns the 'before match' callback if any
 
 
 
-public  **setPaths** (*unknown* $paths)
+public  **setPaths** (*mixed* $paths)
 
 Set common paths for all the routes in the group
 
@@ -109,56 +122,56 @@ Returns the routes added to the group
 
 
 
-public  **add** (*unknown* $pattern, [*unknown* $paths], [*unknown* $httpMethods])
+public  **add** (*mixed* $pattern, [*mixed* $paths], [*mixed* $httpMethods])
 
-Adds a route to the router on any HTTP method 
+Adds a route to the router on any HTTP method
 
 .. code-block:: php
 
     <?php
 
-     router->add('/about', 'About::index');
+    $router->add("/about", "About::index");
 
 
 
 
-public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>`  **addGet** (*string* $pattern, [*string/array* $paths])
+public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>` **addGet** (*string* $pattern, [*string/array* $paths])
 
 Adds a route to the router that only match if the HTTP method is GET
 
 
 
-public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>`  **addPost** (*string* $pattern, [*string/array* $paths])
+public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>` **addPost** (*string* $pattern, [*string/array* $paths])
 
 Adds a route to the router that only match if the HTTP method is POST
 
 
 
-public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>`  **addPut** (*string* $pattern, [*string/array* $paths])
+public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>` **addPut** (*string* $pattern, [*string/array* $paths])
 
 Adds a route to the router that only match if the HTTP method is PUT
 
 
 
-public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>`  **addPatch** (*string* $pattern, [*string/array* $paths])
+public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>` **addPatch** (*string* $pattern, [*string/array* $paths])
 
 Adds a route to the router that only match if the HTTP method is PATCH
 
 
 
-public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>`  **addDelete** (*string* $pattern, [*string/array* $paths])
+public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>` **addDelete** (*string* $pattern, [*string/array* $paths])
 
 Adds a route to the router that only match if the HTTP method is DELETE
 
 
 
-public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>`  **addOptions** (*string* $pattern, [*string/array* $paths])
+public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>` **addOptions** (*string* $pattern, [*string/array* $paths])
 
 Add a route to the router that only match if the HTTP method is OPTIONS
 
 
 
-public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>`  **addHead** (*string* $pattern, [*string/array* $paths])
+public :doc:`Phalcon\\Mvc\\Router\\Route <Phalcon_Mvc_Router_Route>` **addHead** (*string* $pattern, [*string/array* $paths])
 
 Adds a route to the router that only match if the HTTP method is HEAD
 
@@ -170,7 +183,7 @@ Removes all the pre-defined routes
 
 
 
-protected  **_addRoute** (*unknown* $pattern, [*unknown* $paths], [*unknown* $httpMethods])
+protected  **_addRoute** (*mixed* $pattern, [*mixed* $paths], [*mixed* $httpMethods])
 
 Adds a route applying the common attributes
 

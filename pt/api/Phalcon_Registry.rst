@@ -1,42 +1,61 @@
 Final class **Phalcon\\Registry**
 =================================
 
-*implements* ArrayAccess, Countable, Iterator, Traversable
+*implements* `ArrayAccess <http://php.net/manual/en/class.arrayaccess.php>`_, `Countable <http://php.net/manual/en/class.countable.php>`_, `Iterator <http://php.net/manual/en/class.iterator.php>`_, `Traversable <http://php.net/manual/en/class.traversable.php>`_
 
 .. role:: raw-html(raw)
    :format: html
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/registry.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-A registry is a container for storing objects and values in the application space. By storing the value in a registry, the same object is always available throughout your application.  
+A registry is a container for storing objects and values in the application space.
+By storing the value in a registry, the same object is always available throughout
+your application.
 
 .. code-block:: php
 
     <?php
 
-     	$registry = new \Phalcon\Registry();
-    
-     	// Set value
-     	$registry->something = 'something';
-     	// or
-     	$registry['something'] = 'something';
-    
-     	// Get value
-     	$value = $registry->something;
-     	// or
-     	$value = $registry['something'];
-    
-     	// Check if the key exists
-     	$exists = isset($registry->something);
-     	// or
-     	$exists = isset($registry['something']);
-    
-     	// Unset
-     	unset($registry->something);
-     	// or
-     	unset($registry['something']);
+    $registry = new \Phalcon\Registry();
 
-  In addition to ArrayAccess, Phalcon\\Registry also implements Countable (count($registry) will return the number of elements in the registry), Serializable and Iterator (you can iterate over the registry using a foreach loop) interfaces. For PHP 5.4 and higher, JsonSerializable interface is implemented.  Phalcon\\Registry is very fast (it is typically faster than any userspace implementation of the registry); however, this comes at a price: Phalcon\\Registry is a final class and cannot be inherited from.  Though Phalcon\\Registry exposes methods like __get(), offsetGet(), count() etc, it is not recommended to invoke them manually (these methods exist mainly to match the interfaces the registry implements): $registry->__get('property') is several times slower than $registry->property.  Internally all the magic methods (and interfaces except JsonSerializable) are implemented using object handlers or similar techniques: this allows to bypass relatively slow method calls.
+    // Set value
+    $registry->something = "something";
+    // or
+    $registry["something"] = "something";
+
+    // Get value
+    $value = $registry->something;
+    // or
+    $value = $registry["something"];
+
+    // Check if the key exists
+    $exists = isset($registry->something);
+    // or
+    $exists = isset($registry["something"]);
+
+    // Unset
+    unset($registry->something);
+    // or
+    unset($registry["something"]);
+
+In addition to ArrayAccess, Phalcon\\Registry also implements Countable
+(count($registry) will return the number of elements in the registry),
+Serializable and Iterator (you can iterate over the registry
+using a foreach loop) interfaces. For PHP 5.4 and higher, JsonSerializable
+interface is implemented.
+
+Phalcon\\Registry is very fast (it is typically faster than any userspace
+implementation of the registry); however, this comes at a price:
+Phalcon\\Registry is a final class and cannot be inherited from.
+
+Though Phalcon\\Registry exposes methods like __get(), offsetGet(), count() etc,
+it is not recommended to invoke them manually (these methods exist mainly to
+match the interfaces the registry implements): $registry->__get("property")
+is several times slower than $registry->property.
+
+Internally all the magic methods (and interfaces except JsonSerializable)
+are implemented using object handlers or similar techniques: this allows
+to bypass relatively slow method calls.
 
 
 Methods
@@ -48,25 +67,25 @@ Registry constructor
 
 
 
-final public  **offsetExists** (*unknown* $offset)
+final public  **offsetExists** (*mixed* $offset)
 
 Checks if the element is present in the registry
 
 
 
-final public  **offsetGet** (*unknown* $offset)
+final public  **offsetGet** (*mixed* $offset)
 
 Returns an index in the registry
 
 
 
-final public  **offsetSet** (*unknown* $offset, *unknown* $value)
+final public  **offsetSet** (*mixed* $offset, *mixed* $value)
 
 Sets an element in the registry
 
 
 
-final public  **offsetUnset** (*unknown* $offset)
+final public  **offsetUnset** (*mixed* $offset)
 
 Unsets an element in the registry
 
@@ -108,24 +127,24 @@ Obtains the current value in the internal iterator
 
 
 
-final public  **__set** (*unknown* $key, *unknown* $value)
+final public  **__set** (*mixed* $key, *mixed* $value)
 
 Sets an element in the registry
 
 
 
-final public  **__get** (*unknown* $key)
+final public  **__get** (*mixed* $key)
 
 Returns an index in the registry
 
 
 
-final public  **__isset** (*unknown* $key)
+final public  **__isset** (*mixed* $key)
 
 ...
 
 
-final public  **__unset** (*unknown* $key)
+final public  **__unset** (*mixed* $key)
 
 ...
 

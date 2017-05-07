@@ -1,23 +1,25 @@
 返回响应（Returning Responses）
 ===============================
 
-Part of the HTTP cycle is returning responses to clients. :doc:`Phalcon\\Http\\Response <../api/Phalcon_Http_Response>` is the Phalcon
-component designed to achieve this task. HTTP responses are usually composed by headers and body. The following is an example of basic usage:
+:doc:`Phalcon\\Http\\Response <../api/Phalcon_Http_Response>` 是Phalcon中用来处理HTTP响应返回的组件。
+HTTP响应通常是由响应头和响应体组成的。下面是一些基本用法:
 
 .. code-block:: php
 
     <?php
 
-    // Getting a response instance
-    $response = new \Phalcon\Http\Response();
+    use Phalcon\Http\Response;
 
-    // Set status code
+    // 获取一个响应实例
+    $response = new Response();
+
+    // 设置HTTP状态码
     $response->setStatusCode(404, "Not Found");
 
-    // Set the content of the response
+    // 设置响应内容
     $response->setContent("Sorry, the page doesn't exist");
 
-    // Send response to the client
+    // 返回响应到客户端
     $response->send();
 
 If you are using the full MVC stack there is no need to create responses manually. However, if you need to return a response
@@ -27,17 +29,22 @@ directly from a controller's action follow this example:
 
     <?php
 
-    class FeedController extends Phalcon\Mvc\Controller
+    use Phalcon\Http\Response;
+    use Phalcon\Mvc\Controller;
+
+    class FeedController extends Controller
     {
         public function getAction()
         {
             // Getting a response instance
-            $response = new \Phalcon\Http\Response();
+            $response = new Response();
 
-            $feed     = // ... Load here the feed
+            $feed = // ... Load here the feed
 
             // Set the content of the response
-            $response->setContent($feed->asString());
+            $response->setContent(
+                $feed->asString()
+            );
 
             // Return the response
             return $response;
@@ -46,10 +53,9 @@ directly from a controller's action follow this example:
 
 使用头部信息（Working with Headers）
 ------------------------------------
-Headers are an important part of the HTTP response. It contains useful information about the response state like the HTTP status,
-type of response and much more.
+在HTTP响应返回中，响应头（Headers）是非常重要的组成部分. 它包含了一些非常有用的信息，比如HTTP状态码，响应类型等等.
 
-You can set headers in the following way:
+你可以使用如下方式来设置头信息:
 
 .. code-block:: php
 
@@ -73,7 +79,7 @@ retrieves the headers before sending it to client:
     $headers = $response->getHeaders();
 
     // Get a header by its name
-    $contentType = $response->getHeaders()->get("Content-Type");
+    $contentType = $headers->get("Content-Type");
 
 重定向（Making Redirections）
 -----------------------------
@@ -106,17 +112,17 @@ how you can redirect using a route you have defined in your application:
 
     // Redirect based on a named route
     return $response->redirect(
-        array(
+        [
             "for"        => "index-lang",
             "lang"       => "jp",
-            "controller" => "index"
-        )
+            "controller" => "index",
+        ]
     );
 
 Note that a redirection doesn't disable the view component, so if there is a view associated with the current action it
 will be executed anyway. You can disable the view from a controller by executing :code:`$this->view->disable()`;
 
-值得注意的时候重定向并不禁用view组件，所以如果当前的action存在一个关联的view的话，将会继续执行它。在控制器中可以通过 :code:`$this->view->disable()` 来禁用view。
+值得注意的是重定向并不禁用view组件，所以如果当前的action存在一个关联的view的话，将会继续执行它。在控制器中可以通过 :code:`$this->view->disable()` 来禁用view。
 
 HTTP 缓存（HTTP Cache）
 -----------------------
@@ -140,10 +146,10 @@ in the browser cache. Until this date expires no new content will be requested f
 
     <?php
 
-    $expireDate = new DateTime();
-    $expireDate->modify('+2 months');
+    $expiryDate = new DateTime();
+    $expiryDate->modify("+2 months");
 
-    $response->setExpires($expireDate);
+    $response->setExpires($expiryDate);
 
 The Response component automatically shows the date in GMT timezone as expected in an Expires header.
 
@@ -153,10 +159,10 @@ If we set this value to a date in the past the browser will always refresh the r
 
     <?php
 
-    $expireDate = new DateTime();
-    $expireDate->modify('-10 minutes');
+    $expiryDate = new DateTime();
+    $expiryDate->modify("-10 minutes");
 
-    $response->setExpires($expireDate);
+    $response->setExpires($expiryDate);
 
 Browsers rely on the client's clock to assess if this date has passed or not. The client clock can be modified to
 make pages expire and this may represent a limitation for this cache mechanism.
@@ -171,7 +177,7 @@ how long it must keep the page in its cache:
     <?php
 
     // Starting from now, cache the page for one day
-    $response->setHeader('Cache-Control', 'max-age=86400');
+    $response->setHeader("Cache-Control", "max-age=86400");
 
 The opposite effect (avoid page caching) is achieved in this way:
 
@@ -180,7 +186,7 @@ The opposite effect (avoid page caching) is achieved in this way:
     <?php
 
     // Never cache the served page
-    $response->setHeader('Cache-Control', 'private, max-age=0, must-revalidate');
+    $response->setHeader("Cache-Control", "private, max-age=0, must-revalidate");
 
 E-Tag
 ^^^^^
@@ -192,8 +198,13 @@ The identifier must be calculated taking into account that this must change if t
     <?php
 
     // Calculate the E-Tag based on the modification time of the latest news
-    $recentDate = News::maximum(array('column' => 'created_at'));
-    $eTag       = md5($recentDate);
+    $mostRecentDate = News::maximum(
+        [
+            "column" => "created_at"
+        ]
+    );
+
+    $eTag = md5($mostRecentDate);
 
     // Send an E-Tag header
-    $response->setHeader('E-Tag', $eTag);
+    $response->setHeader("E-Tag", $eTag);

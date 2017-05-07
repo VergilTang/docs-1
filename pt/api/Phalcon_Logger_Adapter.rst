@@ -1,6 +1,8 @@
 Abstract class **Phalcon\\Logger\\Adapter**
 ===========================================
 
+*implements* :doc:`Phalcon\\Logger\\AdapterInterface <Phalcon_Logger_AdapterInterface>`
+
 .. role:: raw-html(raw)
    :format: html
 
@@ -12,7 +14,7 @@ Base class for Phalcon\\Logger adapters
 Methods
 -------
 
-public  **setLogLevel** (*unknown* $level)
+public  **setLogLevel** (*mixed* $level)
 
 Filters the logs sent to the handlers that are less or equal than a specific level
 
@@ -54,57 +56,67 @@ Returns the whether the logger is currently in an active transaction or not
 
 
 
-public  **critical** (*unknown* $message, [*array* $context])
+public  **critical** (*mixed* $message, [*array* $context])
 
 Sends/Writes a critical message to the log
 
 
 
-public  **emergency** (*unknown* $message, [*array* $context])
+public  **emergency** (*mixed* $message, [*array* $context])
 
 Sends/Writes an emergency message to the log
 
 
 
-public  **debug** (*unknown* $message, [*array* $context])
+public  **debug** (*mixed* $message, [*array* $context])
 
 Sends/Writes a debug message to the log
 
 
 
-public  **error** (*unknown* $message, [*array* $context])
+public  **error** (*mixed* $message, [*array* $context])
 
 Sends/Writes an error message to the log
 
 
 
-public  **info** (*unknown* $message, [*array* $context])
+public  **info** (*mixed* $message, [*array* $context])
 
 Sends/Writes an info message to the log
 
 
 
-public  **notice** (*unknown* $message, [*array* $context])
+public  **notice** (*mixed* $message, [*array* $context])
 
 Sends/Writes a notice message to the log
 
 
 
-public  **warning** (*unknown* $message, [*array* $context])
+public  **warning** (*mixed* $message, [*array* $context])
 
 Sends/Writes a warning message to the log
 
 
 
-public  **alert** (*unknown* $message, [*array* $context])
+public  **alert** (*mixed* $message, [*array* $context])
 
 Sends/Writes an alert message to the log
 
 
 
-public  **log** (*unknown* $type, [*unknown* $message], [*array* $context])
+public  **log** (*mixed* $type, [*mixed* $message], [*array* $context])
 
 Logs messages to the internal logger. Appends logs to the logger
 
+
+
+abstract public  **getFormatter** () inherited from :doc:`Phalcon\\Logger\\AdapterInterface <Phalcon_Logger_AdapterInterface>`
+
+...
+
+
+abstract public  **close** () inherited from :doc:`Phalcon\\Logger\\AdapterInterface <Phalcon_Logger_AdapterInterface>`
+
+...
 
 

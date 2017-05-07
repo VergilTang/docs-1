@@ -8,38 +8,36 @@ Class **Phalcon\\Loader**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/loader.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This component helps to load your project classes automatically based on some conventions  
+This component helps to load your project classes automatically based on some conventions
 
 .. code-block:: php
 
     <?php
 
-     //Creates the autoloader
-     $loader = new Loader();
-    
-     //Register some namespaces
-     $loader->registerNamespaces(array(
-       'Example\Base' => 'vendor/example/base/',
-       'Example\Adapter' => 'vendor/example/adapter/',
-       'Example' => 'vendor/example/'
-     ));
-    
-     //register autoloader
-     $loader->register();
-    
-     //Requiring this class will automatically include file vendor/example/adapter/Some.php
-     $adapter = Example\Adapter\Some();
+    use Phalcon\Loader;
+
+    // Creates the autoloader
+    $loader = new Loader();
+
+    // Register some namespaces
+    $loader->registerNamespaces(
+        [
+            "Example\\Base"    => "vendor/example/base/",
+            "Example\\Adapter" => "vendor/example/adapter/",
+            "Example"          => "vendor/example/",
+        ]
+    );
+
+    // Register autoloader
+    $loader->register();
+
+    // Requiring this class will automatically include file vendor/example/adapter/Some.php
+    $adapter = new \Example\Adapter\Some();
 
 
 
 Methods
 -------
-
-public  **__construct** ()
-
-Phalcon\\Loader constructor
-
-
 
 public  **setEventsManager** (:doc:`Phalcon\\Events\\ManagerInterface <Phalcon_Events_ManagerInterface>` $eventsManager)
 
@@ -65,10 +63,15 @@ Returns the file extensions registered in the loader
 
 
 
-public  **registerNamespaces** (*array* $namespaces, [*unknown* $merge])
+public  **registerNamespaces** (*array* $namespaces, [*mixed* $merge])
 
 Register namespaces and their related directories
 
+
+
+protected  **prepareNamespace** (*array* $namespace)
+
+...
 
 
 public  **getNamespaces** ()
@@ -77,19 +80,7 @@ Returns the namespaces currently registered in the autoloader
 
 
 
-public  **registerPrefixes** (*array* $prefixes, [*unknown* $merge])
-
-Register directories in which "not found" classes could be found
-
-
-
-public  **getPrefixes** ()
-
-Returns the prefixes currently registered in the autoloader
-
-
-
-public  **registerDirs** (*array* $directories, [*unknown* $merge])
+public  **registerDirs** (*array* $directories, [*mixed* $merge])
 
 Register directories in which "not found" classes could be found
 
@@ -101,7 +92,20 @@ Returns the directories currently registered in the autoloader
 
 
 
-public  **registerClasses** (*array* $classes, [*unknown* $merge])
+public  **registerFiles** (*array* $files, [*mixed* $merge])
+
+Registers files that are "non-classes" hence need a "require". This is very useful for including files that only
+have functions
+
+
+
+public  **getFiles** ()
+
+Returns the files currently registered in the autoloader
+
+
+
+public  **registerClasses** (*array* $classes, [*mixed* $merge])
 
 Register classes and their locations
 
@@ -113,7 +117,7 @@ Returns the class-map currently registered in the autoloader
 
 
 
-public  **register** ()
+public  **register** ([*mixed* $prepend])
 
 Register the autoload method
 
@@ -125,7 +129,13 @@ Unregister the autoload method
 
 
 
-public  **autoLoad** (*unknown* $className)
+public  **loadFiles** ()
+
+Checks if a file exists and then adds the file by doing virtual require
+
+
+
+public  **autoLoad** (*mixed* $className)
 
 Autoloads the registered classes
 

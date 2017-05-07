@@ -1,20 +1,22 @@
 Class **Phalcon\\Session\\Bag**
 ===============================
 
-*implements* :doc:`Phalcon\\Di\\InjectionAwareInterface <Phalcon_Di_InjectionAwareInterface>`, :doc:`Phalcon\\Session\\BagInterface <Phalcon_Session_BagInterface>`, IteratorAggregate, Traversable, ArrayAccess, Countable
+*implements* :doc:`Phalcon\\Di\\InjectionAwareInterface <Phalcon_Di_InjectionAwareInterface>`, :doc:`Phalcon\\Session\\BagInterface <Phalcon_Session_BagInterface>`, `IteratorAggregate <http://php.net/manual/en/class.iteratoraggregate.php>`_, `Traversable <http://php.net/manual/en/class.traversable.php>`_, `ArrayAccess <http://php.net/manual/en/class.arrayaccess.php>`_, `Countable <http://php.net/manual/en/class.countable.php>`_
 
 .. role:: raw-html(raw)
    :format: html
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/session/bag.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This component helps to separate session data into "namespaces". Working by this way you can easily create groups of session variables into the application  
+This component helps to separate session data into "namespaces". Working by this way
+you can easily create groups of session variables into the application
 
 .. code-block:: php
 
     <?php
 
-    $user = new \Phalcon\Session\Bag('user');
+    $user = new \Phalcon\Session\Bag("user");
+
     $user->name = "Kimbra Johnson";
     $user->age  = 22;
 
@@ -23,7 +25,7 @@ This component helps to separate session data into "namespaces". Working by this
 Methods
 -------
 
-public  **__construct** (*unknown* $name)
+public  **__construct** (*mixed* $name)
 
 Phalcon\\Session\\Bag constructor
 
@@ -43,167 +45,168 @@ Returns the DependencyInjector container
 
 public  **initialize** ()
 
-Initializes the session bag. This method must not be called directly, the class calls it when its internal data is accesed
+Initializes the session bag. This method must not be called directly, the
+class calls it when its internal data is accessed
 
 
 
 public  **destroy** ()
 
-Destroyes the session bag 
+Destroys the session bag
 
 .. code-block:: php
 
     <?php
 
-     $user->destroy();
+    $user->destroy();
 
 
 
 
-public  **set** (*unknown* $property, *unknown* $value)
+public  **set** (*mixed* $property, *mixed* $value)
 
-Sets a value in the session bag 
-
-.. code-block:: php
-
-    <?php
-
-     $user->set('name', 'Kimbra');
-
-
-
-
-public  **__set** (*unknown* $property, *unknown* $value)
-
-Magic setter to assign values to the session bag 
+Sets a value in the session bag
 
 .. code-block:: php
 
     <?php
 
-     $user->name = "Kimbra";
+    $user->set("name", "Kimbra");
 
 
 
 
-public  **get** (*unknown* $property, [*unknown* $defaultValue])
+public  **__set** (*mixed* $property, *mixed* $value)
 
-Obtains a value from the session bag optionally setting a default value 
-
-.. code-block:: php
-
-    <?php
-
-     echo $user->get('name', 'Kimbra');
-
-
-
-
-public  **__get** (*unknown* $property)
-
-Magic getter to obtain values from the session bag 
+Magic setter to assign values to the session bag
 
 .. code-block:: php
 
     <?php
 
-     echo $user->name;
+    $user->name = "Kimbra";
 
 
 
 
-public  **has** (*unknown* $property)
+public  **get** (*mixed* $property, [*mixed* $defaultValue])
 
-Check whether a property is defined in the internal bag 
-
-.. code-block:: php
-
-    <?php
-
-     var_dump($user->has('name'));
-
-
-
-
-public  **__isset** (*unknown* $property)
-
-Magic isset to check whether a property is defined in the bag 
+Obtains a value from the session bag optionally setting a default value
 
 .. code-block:: php
 
     <?php
 
-     var_dump(isset($user['name']));
+    echo $user->get("name", "Kimbra");
 
 
 
 
-public  **remove** (*unknown* $property)
+public  **__get** (*mixed* $property)
 
-Removes a property from the internal bag 
-
-.. code-block:: php
-
-    <?php
-
-     $user->remove('name');
-
-
-
-
-public  **__unset** (*unknown* $property)
-
-Magic unset to remove items using the array syntax 
+Magic getter to obtain values from the session bag
 
 .. code-block:: php
 
     <?php
 
-     unset($user['name']);
+    echo $user->name;
+
+
+
+
+public  **has** (*mixed* $property)
+
+Check whether a property is defined in the internal bag
+
+.. code-block:: php
+
+    <?php
+
+    var_dump(
+        $user->has("name")
+    );
+
+
+
+
+public  **__isset** (*mixed* $property)
+
+Magic isset to check whether a property is defined in the bag
+
+.. code-block:: php
+
+    <?php
+
+    var_dump(
+        isset($user["name"])
+    );
+
+
+
+
+public  **remove** (*mixed* $property)
+
+Removes a property from the internal bag
+
+.. code-block:: php
+
+    <?php
+
+    $user->remove("name");
+
+
+
+
+public  **__unset** (*mixed* $property)
+
+Magic unset to remove items using the array syntax
+
+.. code-block:: php
+
+    <?php
+
+    unset($user["name"]);
 
 
 
 
 final public  **count** ()
 
-Return length of bag 
+Return length of bag
 
 .. code-block:: php
 
     <?php
 
-     echo $user->count();
+    echo $user->count();
 
 
 
 
-final public *\ArrayIterator*  **getIterator** ()
+final public  **getIterator** ()
 
  Returns the bag iterator
 
 
 
-final public  **offsetSet** (*string* $property, *mixed* $value)
+final public  **offsetSet** (*mixed* $property, *mixed* $value)
+
+...
 
 
+final public  **offsetExists** (*mixed* $property)
+
+...
 
 
+final public  **offsetUnset** (*mixed* $property)
 
-final public  **offsetExists** (*string* $property)
-
-
-
+...
 
 
-final public  **offsetUnset** (*string* $property)
+final public  **offsetGet** (*mixed* $property)
 
-
-
-
-
-final public  **offsetGet** (*string* $property)
-
-
-
+...
 
 

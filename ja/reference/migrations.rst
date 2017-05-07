@@ -53,83 +53,88 @@ Each file contains a unique class that extends the :code:`Phalcon\Mvc\Model\Migr
     use Phalcon\Db\Column as Column;
     use Phalcon\Db\Index as Index;
     use Phalcon\Db\Reference as Reference;
+    use Phalcon\Mvc\Model\Migration;
 
-    class ProductsMigration_100 extends \Phalcon\Mvc\Model\Migration
+    class ProductsMigration_100 extends Migration
     {
         public function up()
         {
             $this->morphTable(
                 "products",
-                array(
-                    "columns" => array(
+                [
+                    "columns" => [
                         new Column(
                             "id",
-                            array(
+                            [
                                 "type"          => Column::TYPE_INTEGER,
                                 "size"          => 10,
                                 "unsigned"      => true,
                                 "notNull"       => true,
                                 "autoIncrement" => true,
-                                "first"         => true
-                            )
+                                "first"         => true,
+                            ]
                         ),
                         new Column(
                             "product_types_id",
-                            array(
+                            [
                                 "type"     => Column::TYPE_INTEGER,
                                 "size"     => 10,
                                 "unsigned" => true,
                                 "notNull"  => true,
-                                "after"    => "id"
-                            )
+                                "after"    => "id",
+                            ]
                         ),
                         new Column(
                             "name",
-                            array(
+                            [
                                 "type"    => Column::TYPE_VARCHAR,
                                 "size"    => 70,
                                 "notNull" => true,
-                                "after"   => "product_types_id"
-                            )
+                                "after"   => "product_types_id",
+                            ]
                         ),
                         new Column(
                             "price",
-                            array(
+                            [
                                 "type"    => Column::TYPE_DECIMAL,
                                 "size"    => 16,
                                 "scale"   => 2,
                                 "notNull" => true,
-                                "after"   => "name"
-                            )
+                                "after"   => "name",
+                            ]
                         ),
-                    ),
-                    "indexes" => array(
+                    ],
+                    "indexes" => [
                         new Index(
                             "PRIMARY",
-                            array("id")
+                            [
+                                "id",
+                            ]
                         ),
                         new Index(
                             "product_types_id",
-                            array("product_types_id")
-                        )
-                    ),
-                    "references" => array(
+                            [
+                                "product_types_id",
+                            ],
+                        ),
+                    ],
+                    "references" => [
                         new Reference(
                             "products_ibfk_1",
-                            array(
+                            [
                                 "referencedSchema"  => "invo",
                                 "referencedTable"   => "product_types",
-                                "columns"           => array("product_types_id"),
-                                "referencedColumns" => array("id")
-                            )
-                        )
-                    ),
-                    "options" => array(
+                                "columns"           => ["product_types_id"],
+                                "referencedColumns" => ["id"],
+                            ]
+                        ),
+                    ],
+                    "options" => [
                         "TABLE_TYPE"      => "BASE TABLE",
                         "ENGINE"          => "InnoDB",
-                        "TABLE_COLLATION" => "utf8_general_ci"
-                    )
-                )
+                        "TABLE_COLLATION" => "utf8_general_ci",
+                    ],
+                ]
             );
         }
     }
@@ -164,6 +169,8 @@ The class is called "ProductsMigration_100". Suffix 100 refers to the version 1.
 | "unsigned"      | INTEGER columns may be signed or unsigned. This option does not apply to other types of columns                                            | Yes      |
 +-----------------+--------------------------------------------------------------------------------------------------------------------------------------------+----------+
 | "notNull"       | Column can store null values?                                                                                                              | Yes      |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------------+----------+
+| "default"       | Defines a default value for a column (can only be an actual value, not a function such as `NOW()`)                                         | Yes      |
 +-----------------+--------------------------------------------------------------------------------------------------------------------------------------------+----------+
 | "autoIncrement" | With this attribute column will filled automatically with an auto-increment integer. Only one column in the table can have this attribute. | Yes      |
 +-----------------+--------------------------------------------------------------------------------------------------------------------------------------------+----------+
@@ -225,7 +232,9 @@ Migrations aren't only designed to "morph" table. A migration is just a regular 
 
     <?php
 
-    class ProductsMigration_100 extends \Phalcon\Mvc\Model\Migration
+    use Phalcon\Mvc\Model\Migration;
+
+    class ProductsMigration_100 extends Migration
     {
         public function up()
         {
@@ -233,8 +242,14 @@ Migrations aren't only designed to "morph" table. A migration is just a regular 
 
             self::$_connection->insert(
                 "products",
-                array("Malabar spinach", 14.50),
-                array("name", "price")
+                [
+                    "Malabar spinach",
+                    14.50,
+                ],
+                [
+                    "name",
+                    "price",
+                ]
             );
         }
     }

@@ -10,16 +10,31 @@ Class **Phalcon\\Mvc\\View\\Simple**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/mvc/view/simple.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This component allows to render views without hierarchical levels  
+This component allows to render views without hierarchical levels
 
 .. code-block:: php
 
     <?php
 
-     $view = new \Phalcon\Mvc\View\Simple();
-     echo $view->render('templates/my-view', array('content' => $html));
-     //or with filename with extension
-     echo $view->render('templates/my-view.volt', array('content' => $html));
+    use Phalcon\Mvc\View\Simple as View;
+
+    $view = new View();
+
+    // Render a view
+    echo $view->render(
+        "templates/my-view",
+        [
+            "some" => $param,
+        ]
+    );
+
+    // Or with filename with extension
+    echo $view->render(
+        "templates/my-view.volt",
+        [
+            "parameter" => $here,
+        ]
+    );
 
 
 
@@ -28,7 +43,8 @@ Methods
 
 public  **getRegisteredEngines** ()
 
-...
+
+
 
 
 public  **__construct** ([*array* $options])
@@ -37,7 +53,7 @@ Phalcon\\Mvc\\View\\Simple constructor
 
 
 
-public  **setViewsDir** (*unknown* $viewsDir)
+public  **setViewsDir** (*mixed* $viewsDir)
 
 Sets views directory. Depending of your platform, always add a trailing slash or backslash
 
@@ -51,22 +67,24 @@ Gets views directory
 
 public  **registerEngines** (*array* $engines)
 
-Register templating engines 
+Register templating engines
 
 .. code-block:: php
 
     <?php
 
-    $this->view->registerEngines(array(
-      ".phtml" => "Phalcon\Mvc\View\Engine\Php",
-      ".volt" => "Phalcon\Mvc\View\Engine\Volt",
-      ".mhtml" => "MyCustomEngine"
-    ));
+    $this->view->registerEngines(
+        [
+            ".phtml" => "Phalcon\\Mvc\\View\\Engine\\Php",
+            ".volt"  => "Phalcon\\Mvc\\View\\Engine\\Volt",
+            ".mhtml" => "MyCustomEngine",
+        ]
+    );
 
 
 
 
-protected *array*  **_loadTemplateEngines** ()
+protected *array* **_loadTemplateEngines** ()
 
 Loads registered template engines, if none is registered it will use Phalcon\\Mvc\\View\\Engine\\Php
 
@@ -78,40 +96,45 @@ Tries to render the view with every engine registered in the component
 
 
 
-public *string*  **render** (*string* $path, [*array* $params])
+public  **render** (*string* $path, [*array* $params])
 
 Renders a view
 
 
 
-public  **partial** (*string* $partialPath, [*array* $params])
+public  **partial** (*mixed* $partialPath, [*mixed* $params])
 
-Renders a partial view 
-
-.. code-block:: php
-
-    <?php
-
-     	//Show a partial inside another view
-     	$this->partial('shared/footer');
+Renders a partial view
 
 .. code-block:: php
 
     <?php
 
-     	//Show a partial inside another view with parameters
-     	$this->partial('shared/footer', array('content' => $html));
+    // Show a partial inside another view
+    $this->partial("shared/footer");
+
+.. code-block:: php
+
+    <?php
+
+    // Show a partial inside another view with parameters
+    $this->partial(
+        "shared/footer",
+        [
+            "content" => $html,
+        ]
+    );
 
 
 
 
-public :doc:`Phalcon\\Mvc\\View\\Simple <Phalcon_Mvc_View_Simple>`  **setCacheOptions** (*array* $options)
+public  **setCacheOptions** (*array* $options)
 
 Sets the cache options
 
 
 
-public *array*  **getCacheOptions** ()
+public *array* **getCacheOptions** ()
 
 Returns the cache options
 
@@ -129,73 +152,82 @@ Returns the cache instance used to cache
 
 
 
-public  **cache** ([*unknown* $options])
+public  **cache** ([*mixed* $options])
 
-Cache the actual view render to certain level 
-
-.. code-block:: php
-
-    <?php
-
-      $this->view->cache(array('key' => 'my-key', 'lifetime' => 86400));
-
-
-
-
-public  **setParamToView** (*unknown* $key, *unknown* $value)
-
-Adds parameters to views (alias of setVar) 
+Cache the actual view render to certain level
 
 .. code-block:: php
 
     <?php
 
-    $this->view->setParamToView('products', $products);
+    $this->view->cache(
+        [
+            "key"      => "my-key",
+            "lifetime" => 86400,
+        ]
+    );
 
 
 
 
-public  **setVars** (*array* $params, [*unknown* $merge])
+public  **setParamToView** (*mixed* $key, *mixed* $value)
 
-Set all the render params 
-
-.. code-block:: php
-
-    <?php
-
-    $this->view->setVars(array('products' => $products));
-
-
-
-
-public  **setVar** (*unknown* $key, *unknown* $value)
-
-Set a single view parameter 
+Adds parameters to views (alias of setVar)
 
 .. code-block:: php
 
     <?php
 
-    $this->view->setVar('products', $products);
+    $this->view->setParamToView("products", $products);
 
 
 
 
-public *mixed*  **getVar** (*string* $key)
+public  **setVars** (*array* $params, [*mixed* $merge])
+
+Set all the render params
+
+.. code-block:: php
+
+    <?php
+
+    $this->view->setVars(
+        [
+            "products" => $products,
+        ]
+    );
+
+
+
+
+public  **setVar** (*mixed* $key, *mixed* $value)
+
+Set a single view parameter
+
+.. code-block:: php
+
+    <?php
+
+    $this->view->setVar("products", $products);
+
+
+
+
+public  **getVar** (*mixed* $key)
 
 Returns a parameter previously set in the view
 
 
 
-public *array*  **getParamsToView** ()
+public *array* **getParamsToView** ()
 
 Returns parameters to views
 
 
 
-public  **setContent** (*unknown* $content)
+public  **setContent** (*mixed* $content)
 
-Externally sets the view content 
+Externally sets the view content
 
 .. code-block:: php
 
@@ -212,15 +244,15 @@ Returns cached output from another view stage
 
 
 
-public *string*  **getActiveRenderPath** ()
+public *string* **getActiveRenderPath** ()
 
 Returns the path of the view that is currently rendered
 
 
 
-public  **__set** (*unknown* $key, *unknown* $value)
+public  **__set** (*mixed* $key, *mixed* $value)
 
-Magic method to pass variables to the views 
+Magic method to pass variables to the views
 
 .. code-block:: php
 
@@ -231,9 +263,9 @@ Magic method to pass variables to the views
 
 
 
-public *mixed*  **__get** (*string* $key)
+public  **__get** (*mixed* $key)
 
-Magic method to retrieve a variable passed to the view 
+Magic method to retrieve a variable passed to the view
 
 .. code-block:: php
 
@@ -244,25 +276,25 @@ Magic method to retrieve a variable passed to the view
 
 
 
-public  **setDI** (:doc:`Phalcon\\DiInterface <Phalcon_DiInterface>` $dependencyInjector) inherited from Phalcon\\Di\\Injectable
+public  **setDI** (:doc:`Phalcon\\DiInterface <Phalcon_DiInterface>` $dependencyInjector) inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Sets the dependency injector
 
 
 
-public  **getDI** () inherited from Phalcon\\Di\\Injectable
+public  **getDI** () inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Returns the internal dependency injector
 
 
 
-public  **setEventsManager** (:doc:`Phalcon\\Events\\ManagerInterface <Phalcon_Events_ManagerInterface>` $eventsManager) inherited from Phalcon\\Di\\Injectable
+public  **setEventsManager** (:doc:`Phalcon\\Events\\ManagerInterface <Phalcon_Events_ManagerInterface>` $eventsManager) inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Sets the event manager
 
 
 
-public  **getEventsManager** () inherited from Phalcon\\Di\\Injectable
+public  **getEventsManager** () inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Returns the internal event manager
 

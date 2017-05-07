@@ -8,7 +8,8 @@ Abstract class **Phalcon\\Dispatcher**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/dispatcher.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This is the base class for Phalcon\\Mvc\\Dispatcher and Phalcon\\Cli\\Dispatcher. This class can't be instantiated directly, you can use it to create your own dispatchers.
+This is the base class for Phalcon\\Mvc\\Dispatcher and Phalcon\\Cli\\Dispatcher.
+This class can't be instantiated directly, you can use it to create your own dispatchers.
 
 
 Constants
@@ -28,12 +29,6 @@ Constants
 
 Methods
 -------
-
-public  **__construct** ()
-
-Phalcon\\Dispatcher constructor
-
-
 
 public  **setDI** (:doc:`Phalcon\\DiInterface <Phalcon_DiInterface>` $dependencyInjector)
 
@@ -59,13 +54,19 @@ Returns the internal event manager
 
 
 
-public  **setActionSuffix** (*unknown* $actionSuffix)
+public  **setActionSuffix** (*mixed* $actionSuffix)
 
 Sets the default action suffix
 
 
 
-public  **setModuleName** (*unknown* $moduleName)
+public  **getActionSuffix** ()
+
+Gets the default action suffix
+
+
+
+public  **setModuleName** (*mixed* $moduleName)
 
 Sets the module where the controller is (only informative)
 
@@ -77,7 +78,7 @@ Gets the module where the controller class is
 
 
 
-public  **setNamespaceName** (*unknown* $namespaceName)
+public  **setNamespaceName** (*mixed* $namespaceName)
 
 Sets the namespace where the controller class is
 
@@ -89,7 +90,7 @@ Gets a namespace to be prepended to the current handler name
 
 
 
-public  **setDefaultNamespace** (*unknown* $namespaceName)
+public  **setDefaultNamespace** (*mixed* $namespaceName)
 
 Sets the default namespace
 
@@ -101,13 +102,13 @@ Returns the default namespace
 
 
 
-public  **setDefaultAction** (*unknown* $actionName)
+public  **setDefaultAction** (*mixed* $actionName)
 
 Sets the default action name
 
 
 
-public  **setActionName** (*unknown* $actionName)
+public  **setActionName** (*mixed* $actionName)
 
 Sets the action name to be dispatched
 
@@ -137,9 +138,15 @@ Set a param by its name or numeric index
 
 
 
-public *mixed*  **getParam** (*mixed* $param, [*string|array* $filters], [*mixed* $defaultValue])
+public *mixed* **getParam** (*mixed* $param, [*string* | *array* $filters], [*mixed* $defaultValue])
 
 Gets a param by its name or numeric index
+
+
+
+public *boolean* **hasParam** (*mixed* $param)
+
+Check if a param exists
 
 
 
@@ -161,13 +168,61 @@ Sets the latest returned value by an action manually
 
 
 
-public *mixed*  **getReturnedValue** ()
+public *mixed* **getReturnedValue** ()
 
-Returns value returned by the lastest dispatched action
+Returns value returned by the latest dispatched action
 
 
 
-public *object*  **dispatch** ()
+public  **setModelBinding** (*mixed* $value, [*mixed* $cache])
+
+Enable/Disable model binding during dispatch
+
+.. code-block:: php
+
+    <?php
+
+    $di->set('dispatcher', function() {
+        $dispatcher = new Dispatcher();
+
+        $dispatcher->setModelBinding(true, 'cache');
+        return $dispatcher;
+    });
+
+
+
+
+public  **setModelBinder** (:doc:`Phalcon\\Mvc\\Model\\BinderInterface <Phalcon_Mvc_Model_BinderInterface>` $modelBinder, [*mixed* $cache])
+
+Enable model binding during dispatch
+
+.. code-block:: php
+
+    <?php
+
+    $di->set('dispatcher', function() {
+        $dispatcher = new Dispatcher();
+
+        $dispatcher->setModelBinder(new Binder(), 'cache');
+        return $dispatcher;
+    });
+
+
+
+
+public  **getModelBinder** ()
+
+Gets model binder
+
+
+
+public *object* **dispatch** ()
+
+Dispatches a handle action taking into account the routing parameters
+
+
+
+protected *object* **_dispatch** ()
 
 Dispatches a handle action taking into account the routing parameters
 
@@ -175,13 +230,19 @@ Dispatches a handle action taking into account the routing parameters
 
 public  **forward** (*array* $forward)
 
-Forwards the execution flow to another controller/action Dispatchers are unique per module. Forwarding between modules is not allowed 
+Forwards the execution flow to another controller/action
+Dispatchers are unique per module. Forwarding between modules is not allowed
 
 .. code-block:: php
 
     <?php
 
-      $this->dispatcher->forward(array("controller" => "posts", "action" => "index"));
+    $this->dispatcher->forward(
+        [
+            "controller" => "posts",
+            "action"     => "index",
+        ]
+    );
 
 
 
@@ -195,6 +256,30 @@ Check if the current executed action was forwarded by another one
 public  **getHandlerClass** ()
 
 Possible class name that will be located to dispatch the request
+
+
+
+public  **callActionMethod** (*mixed* $handler, *mixed* $actionMethod, [*array* $params])
+
+...
+
+
+public  **getBoundModels** ()
+
+Returns bound models from binder instance
+
+.. code-block:: php
+
+    <?php
+
+    class UserController extends Controller
+    {
+        public function showAction(User $user)
+        {
+            $boundModels = $this->dispatcher->getBoundModels(); // return array with $user
+        }
+    }
+
 
 
 

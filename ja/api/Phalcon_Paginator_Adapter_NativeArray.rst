@@ -10,24 +10,26 @@ Class **Phalcon\\Paginator\\Adapter\\NativeArray**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/paginator/adapter/nativearray.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Pagination using a PHP array as source of data  
+Pagination using a PHP array as source of data
 
 .. code-block:: php
 
     <?php
 
-    $paginator = new \Phalcon\Paginator\Adapter\NativeArray(
-    	array(
-    		"data"  => array(
-    			array('id' => 1, 'name' => 'Artichoke'),
-    			array('id' => 2, 'name' => 'Carrots'),
-    			array('id' => 3, 'name' => 'Beet'),
-    			array('id' => 4, 'name' => 'Lettuce'),
-    			array('id' => 5, 'name' => '')
-    		),
-    		"limit" => 2,
-    		"page"  => $currentPage
-    	)
+    use Phalcon\Paginator\Adapter\NativeArray;
+
+    $paginator = new NativeArray(
+        [
+            "data"  => [
+                ["id" => 1, "name" => "Artichoke"],
+                ["id" => 2, "name" => "Carrots"],
+                ["id" => 3, "name" => "Beet"],
+                ["id" => 4, "name" => "Lettuce"],
+                ["id" => 5, "name" => ""],
+            ],
+            "limit" => 2,
+            "page"  => $currentPage,
+        ]
     );
 
 
@@ -47,19 +49,19 @@ Returns a slice of the resultset to show in the pagination
 
 
 
-public  **setCurrentPage** (*unknown* $page) inherited from Phalcon\\Paginator\\Adapter
+public  **setCurrentPage** (*mixed* $page) inherited from :doc:`Phalcon\\Paginator\\Adapter <Phalcon_Paginator_Adapter>`
 
 Set the current page number
 
 
 
-public  **setLimit** (*unknown* $limitRows) inherited from Phalcon\\Paginator\\Adapter
+public  **setLimit** (*mixed* $limitRows) inherited from :doc:`Phalcon\\Paginator\\Adapter <Phalcon_Paginator_Adapter>`
 
 Set current rows limit
 
 
 
-public  **getLimit** () inherited from Phalcon\\Paginator\\Adapter
+public  **getLimit** () inherited from :doc:`Phalcon\\Paginator\\Adapter <Phalcon_Paginator_Adapter>`
 
 Get current rows limit
 

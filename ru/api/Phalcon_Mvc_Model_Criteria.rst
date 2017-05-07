@@ -8,7 +8,9 @@ Class **Phalcon\\Mvc\\Model\\Criteria**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/mvc/model/criteria.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This class is used to build the array parameter required by Phalcon\\Mvc\\Model::find() and Phalcon\\Mvc\\Model::findFirst() using an object-oriented interface.  
+This class is used to build the array parameter required by
+Phalcon\\Mvc\\Model::find() and Phalcon\\Mvc\\Model::findFirst()
+using an object-oriented interface.
 
 .. code-block:: php
 
@@ -17,7 +19,7 @@ This class is used to build the array parameter required by Phalcon\\Mvc\\Model:
     $robots = Robots::query()
         ->where("type = :type:")
         ->andWhere("year < 2000")
-        ->bind(array("type" => "mechanical"))
+        ->bind(["type" => "mechanical"])
         ->limit(5, 10)
         ->orderBy("name")
         ->execute();
@@ -39,7 +41,7 @@ Returns the DependencyInjector container
 
 
 
-public  **setModelName** (*unknown* $modelName)
+public  **setModelName** (*mixed* $modelName)
 
 Set a model on which the query will be executed
 
@@ -51,213 +53,229 @@ Returns an internal model name on which the criteria will be applied
 
 
 
-public  **bind** (*array* $bindParams)
+public  **bind** (*array* $bindParams, [*mixed* $merge])
 
-Sets the bound parameters in the criteria This method replaces all previously set bound parameters
+Sets the bound parameters in the criteria
+This method replaces all previously set bound parameters
 
 
 
 public  **bindTypes** (*array* $bindTypes)
 
-Sets the bind types in the criteria This method replaces all previously set bound parameters
+Sets the bind types in the criteria
+This method replaces all previously set bound parameters
 
 
 
-public  **distinct** (*unknown* $distinct)
+public  **distinct** (*mixed* $distinct)
 
 Sets SELECT DISTINCT / SELECT ALL flag
 
 
 
-public :doc:`Phalcon\\Mvc\\Model\\Criteria <Phalcon_Mvc_Model_Criteria>`  **columns** (*string|array* $columns)
+public :doc:`Phalcon\\Mvc\\Model\\Criteria <Phalcon_Mvc_Model_Criteria>` **columns** (*string* | *array* $columns)
 
-Sets the columns to be queried 
-
-.. code-block:: php
-
-    <?php
-
-    $criteria->columns(array('id', 'name'));
-
-
-
-
-public  **join** (*unknown* $model, [*unknown* $conditions], [*unknown* $alias], [*unknown* $type])
-
-Adds a INNER join to the query 
+Sets the columns to be queried
 
 .. code-block:: php
 
     <?php
 
-    $criteria->join('Robots');
-    $criteria->join('Robots', 'r.id = RobotsParts.robots_id');
-    $criteria->join('Robots', 'r.id = RobotsParts.robots_id', 'r');
-    $criteria->join('Robots', 'r.id = RobotsParts.robots_id', 'r', 'LEFT');
+    $criteria->columns(
+        [
+            "id",
+            "name",
+        ]
+    );
 
 
 
 
-public  **innerJoin** (*unknown* $model, [*unknown* $conditions], [*unknown* $alias])
+public  **join** (*mixed* $model, [*mixed* $conditions], [*mixed* $alias], [*mixed* $type])
 
-Adds a INNER join to the query 
-
-.. code-block:: php
-
-    <?php
-
-    $criteria->innerJoin('Robots');
-    $criteria->innerJoin('Robots', 'r.id = RobotsParts.robots_id');
-    $criteria->innerJoin('Robots', 'r.id = RobotsParts.robots_id', 'r');
-
-
-
-
-public  **leftJoin** (*unknown* $model, [*unknown* $conditions], [*unknown* $alias])
-
-Adds a LEFT join to the query 
+Adds an INNER join to the query
 
 .. code-block:: php
 
     <?php
 
-    $criteria->leftJoin('Robots', 'r.id = RobotsParts.robots_id', 'r');
+    $criteria->join("Robots");
+    $criteria->join("Robots", "r.id = RobotsParts.robots_id");
+    $criteria->join("Robots", "r.id = RobotsParts.robots_id", "r");
+    $criteria->join("Robots", "r.id = RobotsParts.robots_id", "r", "LEFT");
 
 
 
 
-public  **rightJoin** (*unknown* $model, [*unknown* $conditions], [*unknown* $alias])
+public  **innerJoin** (*mixed* $model, [*mixed* $conditions], [*mixed* $alias])
 
-Adds a RIGHT join to the query 
+Adds an INNER join to the query
 
 .. code-block:: php
 
     <?php
 
-    $criteria->rightJoin('Robots', 'r.id = RobotsParts.robots_id', 'r');
+    $criteria->innerJoin("Robots");
+    $criteria->innerJoin("Robots", "r.id = RobotsParts.robots_id");
+    $criteria->innerJoin("Robots", "r.id = RobotsParts.robots_id", "r");
 
 
 
 
-public  **where** (*unknown* $conditions, [*unknown* $bindParams], [*unknown* $bindTypes])
+public  **leftJoin** (*mixed* $model, [*mixed* $conditions], [*mixed* $alias])
+
+Adds a LEFT join to the query
+
+.. code-block:: php
+
+    <?php
+
+    $criteria->leftJoin("Robots", "r.id = RobotsParts.robots_id", "r");
+
+
+
+
+public  **rightJoin** (*mixed* $model, [*mixed* $conditions], [*mixed* $alias])
+
+Adds a RIGHT join to the query
+
+.. code-block:: php
+
+    <?php
+
+    $criteria->rightJoin("Robots", "r.id = RobotsParts.robots_id", "r");
+
+
+
+
+public  **where** (*mixed* $conditions, [*mixed* $bindParams], [*mixed* $bindTypes])
 
 Sets the conditions parameter in the criteria
 
 
 
-public  **addWhere** (*unknown* $conditions, [*unknown* $bindParams], [*unknown* $bindTypes])
+public  **addWhere** (*mixed* $conditions, [*mixed* $bindParams], [*mixed* $bindTypes])
 
 Appends a condition to the current conditions using an AND operator (deprecated)
 
 
 
-public  **andWhere** (*unknown* $conditions, [*unknown* $bindParams], [*unknown* $bindTypes])
+public  **andWhere** (*mixed* $conditions, [*mixed* $bindParams], [*mixed* $bindTypes])
 
 Appends a condition to the current conditions using an AND operator
 
 
 
-public  **orWhere** (*unknown* $conditions, [*unknown* $bindParams], [*unknown* $bindTypes])
+public  **orWhere** (*mixed* $conditions, [*mixed* $bindParams], [*mixed* $bindTypes])
 
 Appends a condition to the current conditions using an OR operator
 
 
 
-public  **betweenWhere** (*unknown* $expr, *unknown* $minimum, *unknown* $maximum)
+public  **betweenWhere** (*mixed* $expr, *mixed* $minimum, *mixed* $maximum)
 
-Appends a BETWEEN condition to the current conditions 
-
-.. code-block:: php
-
-    <?php
-
-    $criteria->betweenWhere('price', 100.25, 200.50);
-
-
-
-
-public  **notBetweenWhere** (*unknown* $expr, *unknown* $minimum, *unknown* $maximum)
-
-Appends a NOT BETWEEN condition to the current conditions 
+Appends a BETWEEN condition to the current conditions
 
 .. code-block:: php
 
     <?php
 
-    $criteria->notBetweenWhere('price', 100.25, 200.50);
+    $criteria->betweenWhere("price", 100.25, 200.50);
 
 
 
 
-public  **inWhere** (*unknown* $expr, *array* $values)
+public  **notBetweenWhere** (*mixed* $expr, *mixed* $minimum, *mixed* $maximum)
 
-Appends an IN condition to the current conditions 
-
-.. code-block:: php
-
-    <?php
-
-    $criteria->inWhere('id', [1, 2, 3]);
-
-
-
-
-public  **notInWhere** (*unknown* $expr, *array* $values)
-
-Appends a NOT IN condition to the current conditions 
+Appends a NOT BETWEEN condition to the current conditions
 
 .. code-block:: php
 
     <?php
 
-    $criteria->notInWhere('id', [1, 2, 3]);
+    $criteria->notBetweenWhere("price", 100.25, 200.50);
 
 
 
 
-public  **conditions** (*unknown* $conditions)
+public  **inWhere** (*mixed* $expr, *array* $values)
+
+Appends an IN condition to the current conditions
+
+.. code-block:: php
+
+    <?php
+
+    $criteria->inWhere("id", [1, 2, 3]);
+
+
+
+
+public  **notInWhere** (*mixed* $expr, *array* $values)
+
+Appends a NOT IN condition to the current conditions
+
+.. code-block:: php
+
+    <?php
+
+    $criteria->notInWhere("id", [1, 2, 3]);
+
+
+
+
+public  **conditions** (*mixed* $conditions)
 
 Adds the conditions parameter to the criteria
 
 
 
-public  **order** (*unknown* $orderColumns)
+public  **order** (*mixed* $orderColumns)
 
 Adds the order-by parameter to the criteria (deprecated)
 
 
 
-public  **orderBy** (*unknown* $orderColumns)
+public  **orderBy** (*mixed* $orderColumns)
 
 Adds the order-by clause to the criteria
 
 
 
-public  **groupBy** (*unknown* $group)
+public  **groupBy** (*mixed* $group)
 
 Adds the group-by clause to the criteria
 
 
 
-public  **having** (*unknown* $having)
+public  **having** (*mixed* $having)
 
 Adds the having clause to the criteria
 
 
 
-public  **limit** (*unknown* $limit, [*unknown* $offset])
+public  **limit** (*mixed* $limit, [*mixed* $offset])
 
-Adds the limit parameter to the criteria
+Adds the limit parameter to the criteria.
+
+.. code-block:: php
+
+    <?php
+
+    $criteria->limit(100);
+    $criteria->limit(100, 200);
+    $criteria->limit("100", "200");
 
 
 
-public  **forUpdate** ([*unknown* $forUpdate])
+
+public  **forUpdate** ([*mixed* $forUpdate])
 
 Adds the "for_update" parameter to the criteria
 
 
 
-public  **sharedLock** ([*unknown* $sharedLock])
+public  **sharedLock** ([*mixed* $sharedLock])
 
 Adds the "shared_lock" parameter to the criteria
 
@@ -265,7 +283,8 @@ Adds the "shared_lock" parameter to the criteria
 
 public  **cache** (*array* $cache)
 
-Sets the cache options in the criteria This method replaces all previously set cache options
+Sets the cache options in the criteria
+This method replaces all previously set cache options
 
 
 
@@ -275,7 +294,7 @@ Returns the conditions parameter in the criteria
 
 
 
-public *string|array|null*  **getColumns** ()
+public *string* | *array* | *null* **getColumns** ()
 
 Returns the columns to be queried
 
@@ -287,13 +306,16 @@ Returns the conditions parameter in the criteria
 
 
 
-public *int|array|null*  **getLimit** ()
+public *int* | *array* | *null* **getLimit** ()
 
-Returns the limit parameter in the criteria, which will be an integer if limit was set without an offset, an array with 'number' and 'offset' keys if an offset was set with the limit, or null if limit has not been set.
+Returns the limit parameter in the criteria, which will be
+an integer if limit was set without an offset,
+an array with 'number' and 'offset' keys if an offset was set with the limit,
+or null if limit has not been set.
 
 
 
-public  **getOrder** ()
+public  **getOrderBy** ()
 
 Returns the order clause in the criteria
 
@@ -311,13 +333,13 @@ Returns the having clause in the criteria
 
 
 
-public *array*  **getParams** ()
+public *array* **getParams** ()
 
 Returns all the parameters defined in the criteria
 
 
 
-public static  **fromInput** (:doc:`Phalcon\\DiInterface <Phalcon_DiInterface>` $dependencyInjector, *unknown* $modelName, *array* $data, [*unknown* $operator])
+public static  **fromInput** (:doc:`Phalcon\\DiInterface <Phalcon_DiInterface>` $dependencyInjector, *mixed* $modelName, *array* $data, [*mixed* $operator])
 
 Builds a Phalcon\\Mvc\\Model\\Criteria based on an input array like _POST
 

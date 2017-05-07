@@ -12,15 +12,26 @@ Lazy-Load of handlers for Mvc\\Micro using auto-loading
 Methods
 -------
 
-public  **__construct** (*unknown* $definition)
+public  **getDefinition** ()
+
+...
+
+
+public  **__construct** (*mixed* $definition)
 
 Phalcon\\Mvc\\Micro\\LazyLoader constructor
 
 
 
-public *mixed*  **__call** (*string* $method, *array* $arguments)
+public *mixed* **__call** (*string* $method, *array* $arguments)
 
 Initializes the internal handler, calling functions on it
+
+
+
+public *mixed* **callMethod** (*string* $method, *array* $arguments, [:doc:`Phalcon\\Mvc\\Model\\BinderInterface <Phalcon_Mvc_Model_BinderInterface>` $modelBinder])
+
+Calling __call method
 
 
 

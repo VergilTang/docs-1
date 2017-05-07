@@ -22,112 +22,116 @@ Constants
 Methods
 -------
 
-public  **__construct** ([*array* $options]) inherited from Phalcon\\Session\\Adapter
+public  **__construct** ([*array* $options]) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Phalcon\\Session\\Adapter constructor
 
 
 
-public  **start** () inherited from Phalcon\\Session\\Adapter
+public  **start** () inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Starts the session (if headers are already sent the session will not be started)
 
 
 
-public  **setOptions** (*array* $options) inherited from Phalcon\\Session\\Adapter
+public  **setOptions** (*array* $options) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
-Sets session's options 
+Sets session's options
 
 .. code-block:: php
 
     <?php
 
-    $session->setOptions(array(
-    	'uniqueId' => 'my-private-app'
-    ));
+    $session->setOptions(
+        [
+            "uniqueId" => "my-private-app",
+        ]
+    );
 
 
 
 
-public  **getOptions** () inherited from Phalcon\\Session\\Adapter
+public  **getOptions** () inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Get internal options
 
 
 
-public  **setName** (*unknown* $name) inherited from Phalcon\\Session\\Adapter
+public  **setName** (*mixed* $name) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Set session name
 
 
 
-public  **getName** () inherited from Phalcon\\Session\\Adapter
+public  **getName** () inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Get session name
 
 
 
-public  **regenerateId** ([*unknown* $deleteOldSession]) inherited from Phalcon\\Session\\Adapter
+public  **regenerateId** ([*mixed* $deleteOldSession]) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 
 
 
 
-public  **get** (*unknown* $index, [*unknown* $defaultValue], [*unknown* $remove]) inherited from Phalcon\\Session\\Adapter
+public  **get** (*mixed* $index, [*mixed* $defaultValue], [*mixed* $remove]) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
-Gets a session variable from an application context 
-
-.. code-block:: php
-
-    <?php
-
-    $session->get('auth', 'yes');
-
-
-
-
-public  **set** (*unknown* $index, *unknown* $value) inherited from Phalcon\\Session\\Adapter
-
-Sets a session variable in an application context 
+Gets a session variable from an application context
 
 .. code-block:: php
 
     <?php
 
-    $session->set('auth', 'yes');
+    $session->get("auth", "yes");
 
 
 
 
-public  **has** (*unknown* $index) inherited from Phalcon\\Session\\Adapter
+public  **set** (*mixed* $index, *mixed* $value) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
-Check whether a session variable is set in an application context 
-
-.. code-block:: php
-
-    <?php
-
-    var_dump($session->has('auth'));
-
-
-
-
-public  **remove** (*unknown* $index) inherited from Phalcon\\Session\\Adapter
-
-Removes a session variable from an application context 
+Sets a session variable in an application context
 
 .. code-block:: php
 
     <?php
 
-    $session->remove('auth');
+    $session->set("auth", "yes");
 
 
 
 
-public  **getId** () inherited from Phalcon\\Session\\Adapter
+public  **has** (*mixed* $index) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
-Returns active session id 
+Check whether a session variable is set in an application context
+
+.. code-block:: php
+
+    <?php
+
+    var_dump(
+        $session->has("auth")
+    );
+
+
+
+
+public  **remove** (*mixed* $index) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
+
+Removes a session variable from an application context
+
+.. code-block:: php
+
+    <?php
+
+    $session->remove("auth");
+
+
+
+
+public  **getId** () inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
+
+Returns active session id
 
 .. code-block:: php
 
@@ -138,9 +142,9 @@ Returns active session id
 
 
 
-public  **setId** (*unknown* $id) inherited from Phalcon\\Session\\Adapter
+public  **setId** (*mixed* $id) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
-Set the current session id 
+Set the current session id
 
 .. code-block:: php
 
@@ -151,76 +155,84 @@ Set the current session id
 
 
 
-public  **isStarted** () inherited from Phalcon\\Session\\Adapter
+public  **isStarted** () inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
-Check whether the session has been started 
-
-.. code-block:: php
-
-    <?php
-
-    var_dump($session->isStarted());
-
-
-
-
-public  **destroy** ([*unknown* $removeData]) inherited from Phalcon\\Session\\Adapter
-
-Destroys the active session 
+Check whether the session has been started
 
 .. code-block:: php
 
     <?php
 
-    var_dump($session->destroy());
-    var_dump($session->destroy(true));
+    var_dump(
+        $session->isStarted()
+    );
 
 
 
 
-public  **status** () inherited from Phalcon\\Session\\Adapter
+public  **destroy** ([*mixed* $removeData]) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
-Returns the status of the current session. For PHP 5.3 this function will always return SESSION_NONE 
+Destroys the active session
 
 .. code-block:: php
 
     <?php
 
-    var_dump($session->status());
-    
-      // PHP 5.4 and above will give meaningful messages, 5.3 gets SESSION_NONE always
-      if ($session->status() !== $session::SESSION_ACTIVE) {
-          $session->start();
-      }
+    var_dump(
+        $session->destroy()
+    );
+
+    var_dump(
+        $session->destroy(true)
+    );
 
 
 
 
-public  **__get** (*unknown* $index) inherited from Phalcon\\Session\\Adapter
+public  **status** () inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
+
+Returns the status of the current session.
+
+.. code-block:: php
+
+    <?php
+
+    var_dump(
+        $session->status()
+    );
+
+    if ($session->status() !== $session::SESSION_ACTIVE) {
+        $session->start();
+    }
+
+
+
+
+public  **__get** (*mixed* $index) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Alias: Gets a session variable from an application context
 
 
 
-public  **__set** (*unknown* $index, *unknown* $value) inherited from Phalcon\\Session\\Adapter
+public  **__set** (*mixed* $index, *mixed* $value) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Alias: Sets a session variable in an application context
 
 
 
-public  **__isset** (*unknown* $index) inherited from Phalcon\\Session\\Adapter
+public  **__isset** (*mixed* $index) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Alias: Check whether a session variable is set in an application context
 
 
 
-public  **__unset** (*unknown* $index) inherited from Phalcon\\Session\\Adapter
+public  **__unset** (*mixed* $index) inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 Alias: Removes a session variable from an application context
 
 
 
-public  **__destruct** () inherited from Phalcon\\Session\\Adapter
+public  **__destruct** () inherited from :doc:`Phalcon\\Session\\Adapter <Phalcon_Session_Adapter>`
 
 ...
 

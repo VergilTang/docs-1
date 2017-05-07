@@ -30,80 +30,84 @@ Returns the manager options
 
 
 
-public  **useImplicitOutput** (*unknown* $implicitOutput)
+public  **useImplicitOutput** (*mixed* $implicitOutput)
 
 Sets if the HTML generated must be directly printed or returned
 
 
 
-public  **addCss** (*unknown* $path, [*unknown* $local], [*unknown* $filter], [*unknown* $attributes])
+public  **addCss** (*mixed* $path, [*mixed* $local], [*mixed* $filter], [*mixed* $attributes])
 
-Adds a Css resource to the 'css' collection 
-
-.. code-block:: php
-
-    <?php
-
-    $assets->addCss('css/bootstrap.css');
-    $assets->addCss('http://bootstrap.my-cdn.com/style.css', false);
-
-
-
-
-public  **addInlineCss** (*unknown* $content, [*unknown* $filter], [*unknown* $attributes])
-
-Adds a inline Css to the 'css' collection
-
-
-
-public  **addJs** (*unknown* $path, [*unknown* $local], [*unknown* $filter], [*unknown* $attributes])
-
-Adds a javascript resource to the 'js' collection 
+Adds a Css resource to the 'css' collection
 
 .. code-block:: php
 
     <?php
 
-    $assets->addJs('scripts/jquery.js');
-    $assets->addJs('http://jquery.my-cdn.com/jquery.js', false);
+    $assets->addCss("css/bootstrap.css");
+    $assets->addCss("http://bootstrap.my-cdn.com/style.css", false);
 
 
 
 
-public  **addInlineJs** (*unknown* $content, [*unknown* $filter], [*unknown* $attributes])
+public  **addInlineCss** (*mixed* $content, [*mixed* $filter], [*mixed* $attributes])
 
-Adds a inline javascript to the 'js' collection
+Adds an inline Css to the 'css' collection
 
 
 
-public  **addResourceByType** (*unknown* $type, :doc:`Phalcon\\Assets\\Resource <Phalcon_Assets_Resource>` $resource)
+public  **addJs** (*mixed* $path, [*mixed* $local], [*mixed* $filter], [*mixed* $attributes])
 
-Adds a resource by its type 
+Adds a javascript resource to the 'js' collection
 
 .. code-block:: php
 
     <?php
 
-    $assets->addResourceByType('css', new \Phalcon\Assets\Resource\Css('css/style.css'));
+    $assets->addJs("scripts/jquery.js");
+    $assets->addJs("http://jquery.my-cdn.com/jquery.js", false);
 
 
 
 
-public  **addInlineCodeByType** (*unknown* $type, :doc:`Phalcon\\Assets\\Inline <Phalcon_Assets_Inline>` $code)
+public  **addInlineJs** (*mixed* $content, [*mixed* $filter], [*mixed* $attributes])
 
-Adds a inline code by its type
+Adds an inline javascript to the 'js' collection
+
+
+
+public  **addResourceByType** (*mixed* $type, :doc:`Phalcon\\Assets\\Resource <Phalcon_Assets_Resource>` $resource)
+
+Adds a resource by its type
+
+.. code-block:: php
+
+    <?php
+
+    $assets->addResourceByType("css",
+        new \Phalcon\Assets\Resource\Css("css/style.css")
+    );
+
+
+
+
+public  **addInlineCodeByType** (*mixed* $type, :doc:`Phalcon\\Assets\\Inline <Phalcon_Assets_Inline>` $code)
+
+Adds an inline code by its type
 
 
 
 public  **addResource** (:doc:`Phalcon\\Assets\\Resource <Phalcon_Assets_Resource>` $resource)
 
-Adds a raw resource to the manager 
+Adds a raw resource to the manager
 
 .. code-block:: php
 
     <?php
 
-     $assets->addResource(new Phalcon\Assets\Resource('css', 'css/style.css'));
+    $assets->addResource(
+        new Phalcon\Assets\Resource("css", "css/style.css")
+    );
 
 
 
@@ -114,28 +118,28 @@ Adds a raw inline code to the manager
 
 
 
-public  **set** (*unknown* $id, :doc:`Phalcon\\Assets\\Collection <Phalcon_Assets_Collection>` $collection)
+public  **set** (*mixed* $id, :doc:`Phalcon\\Assets\\Collection <Phalcon_Assets_Collection>` $collection)
 
-Sets a collection in the Assets Manager 
-
-.. code-block:: php
-
-    <?php
-
-     $assets->set('js', $collection);
-
-
-
-
-public  **get** (*unknown* $id)
-
-Returns a collection by its id 
+Sets a collection in the Assets Manager
 
 .. code-block:: php
 
     <?php
 
-     $scripts = $assets->get('js');
+    $assets->set("js", $collection);
+
+
+
+
+public  **get** (*mixed* $id)
+
+Returns a collection by its id
+
+.. code-block:: php
+
+    <?php
+
+    $scripts = $assets->get("js");
 
 
 
@@ -152,7 +156,7 @@ Returns the CSS collection of assets
 
 
 
-public  **collection** (*unknown* $name)
+public  **collection** (*mixed* $name)
 
 Creates/Returns a collection of resources
 
@@ -197,6 +201,12 @@ Prints the HTML for inline JS
 public  **getCollections** ()
 
 Returns existing collections in the manager
+
+
+
+public  **exists** (*mixed* $id)
+
+Returns true or false if collection exists
 
 
 

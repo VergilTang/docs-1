@@ -1,6 +1,8 @@
 Abstract class **Phalcon\\Session\\Adapter**
 ============================================
 
+*implements* :doc:`Phalcon\\Session\\AdapterInterface <Phalcon_Session_AdapterInterface>`
+
 .. role:: raw-html(raw)
    :format: html
 
@@ -35,15 +37,17 @@ Starts the session (if headers are already sent the session will not be started)
 
 public  **setOptions** (*array* $options)
 
-Sets session's options 
+Sets session's options
 
 .. code-block:: php
 
     <?php
 
-    $session->setOptions(array(
-    	'uniqueId' => 'my-private-app'
-    ));
+    $session->setOptions(
+        [
+            "uniqueId" => "my-private-app",
+        ]
+    );
 
 
 
@@ -54,7 +58,7 @@ Get internal options
 
 
 
-public  **setName** (*unknown* $name)
+public  **setName** (*mixed* $name)
 
 Set session name
 
@@ -66,67 +70,69 @@ Get session name
 
 
 
-public  **regenerateId** ([*unknown* $deleteOldSession])
+public  **regenerateId** ([*mixed* $deleteOldSession])
 
 
 
 
 
-public  **get** (*unknown* $index, [*unknown* $defaultValue], [*unknown* $remove])
+public  **get** (*mixed* $index, [*mixed* $defaultValue], [*mixed* $remove])
 
-Gets a session variable from an application context 
-
-.. code-block:: php
-
-    <?php
-
-    $session->get('auth', 'yes');
-
-
-
-
-public  **set** (*unknown* $index, *unknown* $value)
-
-Sets a session variable in an application context 
+Gets a session variable from an application context
 
 .. code-block:: php
 
     <?php
 
-    $session->set('auth', 'yes');
+    $session->get("auth", "yes");
 
 
 
 
-public  **has** (*unknown* $index)
+public  **set** (*mixed* $index, *mixed* $value)
 
-Check whether a session variable is set in an application context 
-
-.. code-block:: php
-
-    <?php
-
-    var_dump($session->has('auth'));
-
-
-
-
-public  **remove** (*unknown* $index)
-
-Removes a session variable from an application context 
+Sets a session variable in an application context
 
 .. code-block:: php
 
     <?php
 
-    $session->remove('auth');
+    $session->set("auth", "yes");
+
+
+
+
+public  **has** (*mixed* $index)
+
+Check whether a session variable is set in an application context
+
+.. code-block:: php
+
+    <?php
+
+    var_dump(
+        $session->has("auth")
+    );
+
+
+
+
+public  **remove** (*mixed* $index)
+
+Removes a session variable from an application context
+
+.. code-block:: php
+
+    <?php
+
+    $session->remove("auth");
 
 
 
 
 public  **getId** ()
 
-Returns active session id 
+Returns active session id
 
 .. code-block:: php
 
@@ -137,9 +143,9 @@ Returns active session id
 
 
 
-public  **setId** (*unknown* $id)
+public  **setId** (*mixed* $id)
 
-Set the current session id 
+Set the current session id
 
 .. code-block:: php
 
@@ -152,68 +158,76 @@ Set the current session id
 
 public  **isStarted** ()
 
-Check whether the session has been started 
+Check whether the session has been started
 
 .. code-block:: php
 
     <?php
 
-    var_dump($session->isStarted());
+    var_dump(
+        $session->isStarted()
+    );
 
 
 
 
-public  **destroy** ([*unknown* $removeData])
+public  **destroy** ([*mixed* $removeData])
 
-Destroys the active session 
+Destroys the active session
 
 .. code-block:: php
 
     <?php
 
-    var_dump($session->destroy());
-    var_dump($session->destroy(true));
+    var_dump(
+        $session->destroy()
+    );
+
+    var_dump(
+        $session->destroy(true)
+    );
 
 
 
 
 public  **status** ()
 
-Returns the status of the current session. For PHP 5.3 this function will always return SESSION_NONE 
+Returns the status of the current session.
 
 .. code-block:: php
 
     <?php
 
-    var_dump($session->status());
-    
-      // PHP 5.4 and above will give meaningful messages, 5.3 gets SESSION_NONE always
-      if ($session->status() !== $session::SESSION_ACTIVE) {
-          $session->start();
-      }
+    var_dump(
+        $session->status()
+    );
+
+    if ($session->status() !== $session::SESSION_ACTIVE) {
+        $session->start();
+    }
 
 
 
 
-public  **__get** (*unknown* $index)
+public  **__get** (*mixed* $index)
 
 Alias: Gets a session variable from an application context
 
 
 
-public  **__set** (*unknown* $index, *unknown* $value)
+public  **__set** (*mixed* $index, *mixed* $value)
 
 Alias: Sets a session variable in an application context
 
 
 
-public  **__isset** (*unknown* $index)
+public  **__isset** (*mixed* $index)
 
 Alias: Check whether a session variable is set in an application context
 
 
 
-public  **__unset** (*unknown* $index)
+public  **__unset** (*mixed* $index)
 
 Alias: Removes a session variable from an application context
 

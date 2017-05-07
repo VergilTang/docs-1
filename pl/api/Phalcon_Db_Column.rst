@@ -8,26 +8,29 @@ Class **Phalcon\\Db\\Column**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/db/column.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Allows to define columns to be used on create or alter table operations  
+Allows to define columns to be used on create or alter table operations
 
 .. code-block:: php
 
     <?php
 
     use Phalcon\Db\Column as Column;
-    
-     //column definition
-     $column = new Column("id", array(
-       "type" => Column::TYPE_INTEGER,
-       "size" => 10,
-       "unsigned" => true,
-       "notNull" => true,
-       "autoIncrement" => true,
-       "first" => true
-     ));
-    
-     //add column to existing table
-     $connection->addColumn("robots", null, $column);
+
+    // Column definition
+    $column = new Column(
+        "id",
+        [
+            "type"          => Column::TYPE_INTEGER,
+            "size"          => 10,
+            "unsigned"      => true,
+            "notNull"       => true,
+            "autoIncrement" => true,
+            "first"         => true,
+        ]
+    );
+
+    // Add column to existing table
+    $connection->addColumn("robots", null, $column);
 
 
 
@@ -135,7 +138,7 @@ Default column value
 
 
 
-public  **__construct** (*unknown* $name, *array* $definition)
+public  **__construct** (*mixed* $name, *array* $definition)
 
 Phalcon\\Db\\Column constructor
 
@@ -177,7 +180,7 @@ Check whether column have first position in table
 
 
 
-public *string*  **getAfterPosition** ()
+public *string* **getAfterPosition** ()
 
 Check whether field absolute to position in table
 

@@ -1,6 +1,8 @@
 Abstract class **Phalcon\\Paginator\\Adapter**
 ==============================================
 
+*implements* :doc:`Phalcon\\Paginator\\AdapterInterface <Phalcon_Paginator_AdapterInterface>`
+
 .. role:: raw-html(raw)
    :format: html
 
@@ -12,13 +14,13 @@ Abstract class **Phalcon\\Paginator\\Adapter**
 Methods
 -------
 
-public  **setCurrentPage** (*unknown* $page)
+public  **setCurrentPage** (*mixed* $page)
 
 Set the current page number
 
 
 
-public  **setLimit** (*unknown* $limitRows)
+public  **setLimit** (*mixed* $limitRows)
 
 Set current rows limit
 
@@ -28,5 +30,10 @@ public  **getLimit** ()
 
 Get current rows limit
 
+
+
+abstract public  **getPaginate** () inherited from :doc:`Phalcon\\Paginator\\AdapterInterface <Phalcon_Paginator_AdapterInterface>`
+
+...
 
 

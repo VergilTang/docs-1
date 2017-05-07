@@ -10,23 +10,29 @@ Class **Phalcon\\Mvc\\View**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/mvc/view.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Phalcon\\Mvc\\View is a class for working with the "view" portion of the model-view-controller pattern. That is, it exists to help keep the view script separate from the model and controller scripts. It provides a system of helpers, output filters, and variable escaping.  
+Phalcon\\Mvc\\View is a class for working with the "view" portion of the model-view-controller pattern.
+That is, it exists to help keep the view script separate from the model and controller scripts.
+It provides a system of helpers, output filters, and variable escaping.
 
 .. code-block:: php
 
     <?php
 
-     //Setting views directory
-     $view = new \Phalcon\Mvc\View();
-     $view->setViewsDir('app/views/');
-    
-     $view->start();
-     //Shows recent posts view (app/views/posts/recent.phtml)
-     $view->render('posts', 'recent');
-     $view->finish();
-    
-     //Printing views output
-     echo $view->getContent();
+    use Phalcon\Mvc\View;
+
+    $view = new View();
+
+    // Setting views directory
+    $view->setViewsDir("app/views/");
+
+    $view->start();
+
+    // Shows recent posts view (app/views/posts/recent.phtml)
+    $view->render("posts", "recent");
+    $view->finish();
+
+    // Printing views output
+    echo $view->getContent();
 
 
 
@@ -74,9 +80,16 @@ Phalcon\\Mvc\\View constructor
 
 
 
-public  **setViewsDir** (*unknown* $viewsDir)
+final protected  **_isAbsolutePath** (*mixed* $path)
 
-Sets the views directory. Depending of your platform, always add a trailing slash or backslash
+Checks if a path is absolute or not
+
+
+
+public  **setViewsDir** (*mixed* $viewsDir)
+
+Sets the views directory. Depending of your platform,
+always add a trailing slash or backslash
 
 
 
@@ -86,15 +99,16 @@ Gets views directory
 
 
 
-public  **setLayoutsDir** (*unknown* $layoutsDir)
+public  **setLayoutsDir** (*mixed* $layoutsDir)
 
-Sets the layouts sub-directory. Must be a directory under the views directory. Depending of your platform, always add a trailing slash or backslash 
+Sets the layouts sub-directory. Must be a directory under the views directory.
+Depending of your platform, always add a trailing slash or backslash
 
 .. code-block:: php
 
     <?php
 
-     $view->setLayoutsDir('../common/layouts/');
+    $view->setLayoutsDir("../common/layouts/");
 
 
 
@@ -105,15 +119,16 @@ Gets the current layouts sub-directory
 
 
 
-public  **setPartialsDir** (*unknown* $partialsDir)
+public  **setPartialsDir** (*mixed* $partialsDir)
 
-Sets a partials sub-directory. Must be a directory under the views directory. Depending of your platform, always add a trailing slash or backslash 
+Sets a partials sub-directory. Must be a directory under the views directory.
+Depending of your platform, always add a trailing slash or backslash
 
 .. code-block:: php
 
     <?php
 
-     $view->setPartialsDir('../common/partials/');
+    $view->setPartialsDir("../common/partials/");
 
 
 
@@ -124,15 +139,15 @@ Gets the current partials sub-directory
 
 
 
-public  **setBasePath** (*unknown* $basePath)
+public  **setBasePath** (*mixed* $basePath)
 
-Sets base path. Depending of your platform, always add a trailing slash or backslash 
+Sets base path. Depending of your platform, always add a trailing slash or backslash
 
 .. code-block:: php
 
     <?php
 
-     	$view->setBasePath(__DIR__ . '/');
+    	$view->setBasePath(__DIR__ . "/");
 
 
 
@@ -143,44 +158,48 @@ Gets base path
 
 
 
-public  **setRenderLevel** (*unknown* $level)
+public  **setRenderLevel** (*mixed* $level)
 
-Sets the render level for the view 
-
-.. code-block:: php
-
-    <?php
-
-     	//Render the view related to the controller only
-     	$this->view->setRenderLevel(View::LEVEL_LAYOUT);
-
-
-
-
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **disableLevel** (*int|array* $level)
-
-Disables a specific level of rendering 
+Sets the render level for the view
 
 .. code-block:: php
 
     <?php
 
-     //Render all levels except ACTION level
-     $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
+    // Render the view related to the controller only
+    $this->view->setRenderLevel(
+        View::LEVEL_LAYOUT
+    );
 
 
 
 
-public  **setMainView** (*unknown* $viewPath)
+public  **disableLevel** (*mixed* $level)
 
-Sets default view name. Must be a file without extension in the views directory 
+Disables a specific level of rendering
 
 .. code-block:: php
 
     <?php
 
-     	//Renders as main view views-dir/base.phtml
-     	$this->view->setMainView('base');
+    // Render all levels except ACTION level
+    $this->view->disableLevel(
+        View::LEVEL_ACTION_VIEW
+    );
+
+
+
+
+public  **setMainView** (*mixed* $viewPath)
+
+Sets default view name. Must be a file without extension in the views directory
+
+.. code-block:: php
+
+    <?php
+
+    // Renders as main view views-dir/base.phtml
+    $this->view->setMainView("base");
 
 
 
@@ -191,15 +210,15 @@ Returns the name of the main view
 
 
 
-public  **setLayout** (*unknown* $layout)
+public  **setLayout** (*mixed* $layout)
 
-Change the layout to be used instead of using the name of the latest controller name 
+Change the layout to be used instead of using the name of the latest controller name
 
 .. code-block:: php
 
     <?php
 
-     	$this->view->setLayout('main');
+    $this->view->setLayout("main");
 
 
 
@@ -210,7 +229,7 @@ Returns the name of the main view
 
 
 
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **setTemplateBefore** (*string|array* $templateBefore)
+public  **setTemplateBefore** (*mixed* $templateBefore)
 
 Sets a template before the controller layout
 
@@ -222,7 +241,7 @@ Resets any "template before" layouts
 
 
 
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **setTemplateAfter** (*string|array* $templateAfter)
+public  **setTemplateAfter** (*mixed* $templateAfter)
 
 Sets a "template after" controller layout
 
@@ -234,70 +253,74 @@ Resets any template before layouts
 
 
 
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **setParamToView** (*string* $key, *mixed* $value)
+public  **setParamToView** (*mixed* $key, *mixed* $value)
 
-Adds parameters to views (alias of setVar) 
-
-.. code-block:: php
-
-    <?php
-
-    $this->view->setParamToView('products', $products);
-
-
-
-
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **setVars** (*array* $params, [*boolean* $merge])
-
-Set all the render params 
+Adds parameters to views (alias of setVar)
 
 .. code-block:: php
 
     <?php
 
-    $this->view->setVars(array('products' => $products));
+    $this->view->setParamToView("products", $products);
 
 
 
 
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **setVar** (*string* $key, *mixed* $value)
+public  **setVars** (*array* $params, [*mixed* $merge])
 
-Set a single view parameter 
+Set all the render params
 
 .. code-block:: php
 
     <?php
 
-    $this->view->setVar('products', $products);
+    $this->view->setVars(
+        [
+            "products" => $products,
+        ]
+    );
 
 
 
 
-public *mixed*  **getVar** (*string* $key)
+public  **setVar** (*mixed* $key, *mixed* $value)
+
+Set a single view parameter
+
+.. code-block:: php
+
+    <?php
+
+    $this->view->setVar("products", $products);
+
+
+
+
+public  **getVar** (*mixed* $key)
 
 Returns a parameter previously set in the view
 
 
 
-public *array*  **getParamsToView** ()
+public  **getParamsToView** ()
 
 Returns parameters to views
 
 
 
-public *string*  **getControllerName** ()
+public  **getControllerName** ()
 
 Gets the name of the controller rendered
 
 
 
-public *string*  **getActionName** ()
+public  **getActionName** ()
 
 Gets the name of the action rendered
 
 
 
-public *array*  **getParams** ()
+public  **getParams** ()
 
 Gets extra parameters of the action rendered
 
@@ -323,22 +346,24 @@ Checks whether view exists on registered extensions and render it
 
 public  **registerEngines** (*array* $engines)
 
-Register templating engines 
+Register templating engines
 
 .. code-block:: php
 
     <?php
 
-    $this->view->registerEngines(array(
-      ".phtml" => "Phalcon\Mvc\View\Engine\Php",
-      ".volt"  => "Phalcon\Mvc\View\Engine\Volt",
-      ".mhtml" => "MyCustomEngine"
-    ));
+    $this->view->registerEngines(
+        [
+            ".phtml" => "Phalcon\\Mvc\\View\\Engine\\Php",
+            ".volt"  => "Phalcon\\Mvc\\View\\Engine\\Volt",
+            ".mhtml" => "MyCustomEngine",
+        ]
+    );
 
 
 
 
-public  **exists** (*unknown* $view)
+public  **exists** (*mixed* $view)
 
 Checks whether view exists
 
@@ -346,93 +371,109 @@ Checks whether view exists
 
 public  **render** (*string* $controllerName, *string* $actionName, [*array* $params])
 
-Executes render process from dispatching data 
+Executes render process from dispatching data
 
 .. code-block:: php
 
     <?php
 
-     //Shows recent posts view (app/views/posts/recent.phtml)
-     $view->start()->render('posts', 'recent')->finish();
+    // Shows recent posts view (app/views/posts/recent.phtml)
+    $view->start()->render("posts", "recent")->finish();
 
 
 
 
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **pick** (*string|array* $renderView)
+public  **pick** (*mixed* $renderView)
 
-Choose a different view to render instead of last-controller/last-action 
-
-.. code-block:: php
-
-    <?php
-
-     class ProductsController extends \Phalcon\Mvc\Controller
-     {
-    
-        public function saveAction()
-        {
-    
-             //Do some save stuff...
-    
-             //Then show the list view
-             $this->view->pick("products/list");
-        }
-     }
-
-
-
-
-public *string*  **getPartial** (*string* $partialPath, [*array* $params])
-
-Renders a partial view 
+Choose a different view to render instead of last-controller/last-action
 
 .. code-block:: php
 
     <?php
 
-     	//Retrieve the contents of a partial
-     	echo $this->getPartial('shared/footer');
+    use Phalcon\Mvc\Controller;
+
+    class ProductsController extends Controller
+    {
+       public function saveAction()
+       {
+            // Do some save stuff...
+
+            // Then show the list view
+            $this->view->pick("products/list");
+       }
+    }
+
+
+
+
+public  **getPartial** (*mixed* $partialPath, [*mixed* $params])
+
+Renders a partial view
 
 .. code-block:: php
 
     <?php
 
-     	//Retrieve the contents of a partial with arguments
-     	echo $this->getPartial('shared/footer', array('content' => $html));
-
-
-
-
-public  **partial** (*string* $partialPath, [*array* $params])
-
-Renders a partial view 
+    // Retrieve the contents of a partial
+    echo $this->getPartial("shared/footer");
 
 .. code-block:: php
 
     <?php
 
-     	//Show a partial inside another view
-     	$this->partial('shared/footer');
+    // Retrieve the contents of a partial with arguments
+    echo $this->getPartial(
+        "shared/footer",
+        [
+            "content" => $html,
+        ]
+    );
+
+
+
+
+public  **partial** (*mixed* $partialPath, [*mixed* $params])
+
+Renders a partial view
 
 .. code-block:: php
 
     <?php
 
-     	//Show a partial inside another view with parameters
-     	$this->partial('shared/footer', array('content' => $html));
-
-
-
-
-public *string*  **getRender** (*string* $controllerName, *string* $actionName, [*array* $params], [*mixed* $configCallback])
-
-Perform the automatic rendering returning the output as a string 
+    // Show a partial inside another view
+    $this->partial("shared/footer");
 
 .. code-block:: php
 
     <?php
 
-     	$template = $this->view->getRender('products', 'show', array('products' => $products));
+    // Show a partial inside another view with parameters
+    $this->partial(
+        "shared/footer",
+        [
+            "content" => $html,
+        ]
+    );
+
+
+
+
+public *string* **getRender** (*string* $controllerName, *string* $actionName, [*array* $params], [*mixed* $configCallback])
+
+Perform the automatic rendering returning the output as a string
+
+.. code-block:: php
+
+    <?php
+
+    $template = $this->view->getRender(
+        "products",
+        "show",
+        [
+            "products" => $products,
+        ]
+    );
 
 
 
@@ -461,22 +502,27 @@ Returns the cache instance used to cache
 
 
 
-public :doc:`Phalcon\\Mvc\\View <Phalcon_Mvc_View>`  **cache** ([*boolean|array* $options])
+public  **cache** ([*mixed* $options])
 
-Cache the actual view render to certain level 
+Cache the actual view render to certain level
 
 .. code-block:: php
 
     <?php
 
-      $this->view->cache(array('key' => 'my-key', 'lifetime' => 86400));
+    $this->view->cache(
+        [
+            "key"      => "my-key",
+            "lifetime" => 86400,
+        ]
+    );
 
 
 
 
-public  **setContent** (*unknown* $content)
+public  **setContent** (*mixed* $content)
 
-Externally sets the view content 
+Externally sets the view content
 
 .. code-block:: php
 
@@ -495,7 +541,7 @@ Returns cached output from another view stage
 
 public  **getActiveRenderPath** ()
 
-Returns the path of the view that is currently rendered
+Returns the path (or paths) of the views that are currently rendered
 
 
 
@@ -517,9 +563,9 @@ Resets the view component to its factory default values
 
 
 
-public  **__set** (*string* $key, *mixed* $value)
+public  **__set** (*mixed* $key, *mixed* $value)
 
-Magic method to pass variables to the views 
+Magic method to pass variables to the views
 
 .. code-block:: php
 
@@ -530,9 +576,9 @@ Magic method to pass variables to the views
 
 
 
-public *mixed*  **__get** (*string* $key)
+public  **__get** (*mixed* $key)
 
-Magic method to retrieve a variable passed to the view 
+Magic method to retrieve a variable passed to the view
 
 .. code-block:: php
 
@@ -549,38 +595,44 @@ Whether automatic rendering is enabled
 
 
 
-public *boolean*  **__isset** (*string* $key)
+public  **__isset** (*mixed* $key)
 
-Magic method to retrieve if a variable is set in the view 
+Magic method to retrieve if a variable is set in the view
 
 .. code-block:: php
 
     <?php
 
-      echo isset($this->view->products);
+    echo isset($this->view->products);
 
 
 
 
-public  **setDI** (:doc:`Phalcon\\DiInterface <Phalcon_DiInterface>` $dependencyInjector) inherited from Phalcon\\Di\\Injectable
+protected  **getViewsDirs** ()
+
+Gets views directories
+
+
+
+public  **setDI** (:doc:`Phalcon\\DiInterface <Phalcon_DiInterface>` $dependencyInjector) inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Sets the dependency injector
 
 
 
-public  **getDI** () inherited from Phalcon\\Di\\Injectable
+public  **getDI** () inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Returns the internal dependency injector
 
 
 
-public  **setEventsManager** (:doc:`Phalcon\\Events\\ManagerInterface <Phalcon_Events_ManagerInterface>` $eventsManager) inherited from Phalcon\\Di\\Injectable
+public  **setEventsManager** (:doc:`Phalcon\\Events\\ManagerInterface <Phalcon_Events_ManagerInterface>` $eventsManager) inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Sets the event manager
 
 
 
-public  **getEventsManager** () inherited from Phalcon\\Di\\Injectable
+public  **getEventsManager** () inherited from :doc:`Phalcon\\Di\\Injectable <Phalcon_Di_Injectable>`
 
 Returns the internal event manager
 

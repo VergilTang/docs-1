@@ -1,126 +1,142 @@
-Command Line Applications
-=========================
+Applications en Ligne de Commande
+=================================
 
-CLI applications are executed from the command line. They are useful to create cron jobs, scripts, command utilities and more.
+Les applications CLI sont exécutées depuis la ligne de commande. Elles sont utiles pour créer de jobs planifiés, des scripts, des utilitaires et bien plus encore.
 
 Structure
 ---------
-A minimal structure of a CLI application will look like this:
+La structure minimale d'une application CLI doit ressembler à ceci:
 
 * app/config/config.php
 * app/tasks/MainTask.php
-* app/cli.php <-- main bootstrap file
+* app/cli.php <-- fichier d'amorce principal
 
-Creating a Bootstrap
+Création de l'Amorce
 --------------------
-As in regular MVC applications, a bootstrap file is used to bootstrap the application. Instead of the index.php bootstrapper in web applications, we use a cli.php file for bootstrapping the application.
+Comme dans les applications MVC classiques, le fichier d'amorce est utilisé pour amorcer l'application. Au lieu du traditionnel index.php des application web, nous utilisons un fichier cli.php comme point d'entrée de l'application.
 
-Below is a sample bootstrap that is being used for this example.
+Ci-dessous un exemple qui sera utilisé pour notre exemple.
 
 .. code-block:: php
 
     <?php
 
-    use Phalcon\Di\FactoryDefault\Cli as CliDI,
-        Phalcon\Cli\Console as ConsoleApp;
+    use Phalcon\Di\FactoryDefault\Cli as CliDI;
+    use Phalcon\Cli\Console as ConsoleApp;
+    use Phalcon\Loader;
 
-    define('VERSION', '1.0.0');
 
-    // Using the CLI factory default services container
+
+    // Utilise le conteneur de services CLI par défaut
     $di = new CliDI();
 
-    // Define path to application directory
-    defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
+
 
     /**
-     * Register the autoloader and tell it to register the tasks directory
+     * Inscription d'un chargeur automatique et lui indique le chemin des tâches
      */
-    $loader = new \Phalcon\Loader();
+    $loader = new Loader();
+
     $loader->registerDirs(
-        array(
-            APPLICATION_PATH . '/tasks'
-        )
+        [
+            __DIR__ . "/tasks",
+        ]
     );
+
     $loader->register();
 
-    // Load the configuration file (if any)
-    if (is_readable(APPLICATION_PATH . '/config/config.php')) {
-        $config = include APPLICATION_PATH . '/config/config.php';
-        $di->set('config', $config);
+
+
+    // Chargement de la configuration (si elle existe)
+
+    $configFile = __DIR__ . "/config/config.php";
+
+    if (is_readable($configFile)) {
+        $config = include $configFile;
+
+        $di->set("config", $config);
     }
 
-    // Create a console application
+
+
+    // Création de l'application console
     $console = new ConsoleApp();
+
     $console->setDI($di);
 
+
+
     /**
-     * Process the console arguments
+     * Traitement des arguments
      */
-    $arguments = array();
+    $arguments = [];
+
     foreach ($argv as $k => $arg) {
-        if ($k == 1) {
-            $arguments['task'] = $arg;
-        } elseif ($k == 2) {
-            $arguments['action'] = $arg;
+        if ($k === 1) {
+            $arguments["task"] = $arg;
+        } elseif ($k === 2) {
+            $arguments["action"] = $arg;
         } elseif ($k >= 3) {
-            $arguments['params'][] = $arg;
+            $arguments["params"][] = $arg;
         }
     }
 
-    // Define global constants for the current task and action
-    define('CURRENT_TASK',   (isset($argv[1]) ? $argv[1] : null));
-    define('CURRENT_ACTION', (isset($argv[2]) ? $argv[2] : null));
+
 
     try {
-        // Handle incoming arguments
+        // Gestion des arguments transmis
         $console->handle($arguments);
     } catch (\Phalcon\Exception $e) {
         echo $e->getMessage();
+
         exit(255);
     }
 
-This piece of code can be run using:
+Cet extrait de code peut être exécuté ainsi:
 
 .. code-block:: bash
 
     $ php app/cli.php
 
-    This is the default task and the default action
+    Ceci est la tache 'default' et l'action 'default'
 
-Tasks
------
-Tasks work similar to controllers. Any CLI application needs at least a MainTask and a mainAction and every task needs to have a mainAction which will run if no action is given explicitly.
+Tâches
+------
+Le fonctionnement des tâches est similaire à celui des contrôleurs. Chaque application nécessite au moins "MainTask" et "mainAction" et chaque tâche une "mainAction" qui sera exécutée si aucune action n'est indiquée explicitement.
 
-Below is an example of the app/tasks/MainTask.php file:
+Ci-dessous se trouve un exemple du fichier app/tasks/MainTask.php:
 
 .. code-block:: php
 
     <?php
 
-    class MainTask extends \Phalcon\Cli\Task
+    use Phalcon\Cli\Task;
+
+    class MainTask extends Task
     {
         public function mainAction()
         {
-            echo "\nThis is the default task and the default action \n";
+            echo "Ceci est la tache 'default' et l'action 'default'" . PHP_EOL;
         }
     }
 
-Processing action parameters
-----------------------------
-It's possible to pass parameters to actions, the code for this is already present in the sample bootstrap.
+Traitement des paramètre de l'action
+------------------------------------
+Il est possible de transmettre des paramètres aux actions. Le code pour réaliser ceci existe déjà dans l'exemple d'amorce.
 
-If you run the application with the following parameters and action:
+Si vous lancer l'application avec l'action et les paramètres suivants:
 
 .. code-block:: php
 
     <?php
 
-    class MainTask extends \Phalcon\Cli\Task
+    use Phalcon\Cli\Task;
+
+    class MainTask extends Task
     {
         public function mainAction()
         {
-            echo "\nThis is the default task and the default action \n";
+            echo "Ceci est la tache 'default' et l'action 'default'" . PHP_EOL;
         }
 
         /**
@@ -128,62 +144,76 @@ If you run the application with the following parameters and action:
          */
         public function testAction(array $params)
         {
-            echo sprintf('hello %s', $params[0]) . PHP_EOL;
-            echo sprintf('best regards, %s', $params[1]) . PHP_EOL;
+            echo sprintf(
+                "bonjour %s",
+                $params[0]
+            );
+
+            echo PHP_EOL;
+
+            echo sprintf(
+                "cordialement, %s",
+                $params[1]
+            );
+
+            echo PHP_EOL;
         }
     }
 
-We can then run the following command:
+On peut désormais lancer la commande suivante:
 
 .. code-block:: bash
 
-   $ php app/cli.php main test world universe
+   $ php app/cli.php main test monde univers
 
-   hello world
-   best regards, universe
+   salut monde
+   cordialement, univers
 
-Running tasks in a chain
-------------------------
-It's also possible to run tasks in a chain if it's required. To accomplish this you must add the console itself to the DI:
+Enchaînement de tâches
+----------------------
+Il est également possible d'enchaîner les tâches si nécessaire. Pour réaliser ceci, vous devez ajouter la console elle-même au DI:
 
 .. code-block:: php
 
     <?php
 
-    $di->setShared('console', $console);
+    $di->setShared("console", $console);
 
     try {
-        // Handle incoming arguments
+        // Gestion des arguments fournis
         $console->handle($arguments);
     } catch (\Phalcon\Exception $e) {
         echo $e->getMessage();
+
         exit(255);
     }
 
-Then you can use the console inside of any task. Below is an example of a modified MainTask.php:
+Ainsi vous pouvez utiliser la console à l'intérieur de n'importe quelle tâche. L'exemple ci-dessous est une version modifiée de MainTask.php:
 
 .. code-block:: php
 
     <?php
 
-    class MainTask extends \Phalcon\Cli\Task
+    use Phalcon\Cli\Task;
+
+    class MainTask extends Task
     {
         public function mainAction()
         {
-            echo "\nThis is the default task and the default action \n";
+            echo "Ceci est la tache 'default' et l'action 'default'" . PHP_EOL;
 
             $this->console->handle(
-                array(
-                    'task'   => 'main',
-                    'action' => 'test'
-                )
+                [
+                    "task"   => "main",
+                    "action" => "test",
+                ]
             );
         }
 
         public function testAction()
         {
-            echo "\nI will get printed too!\n";
+            echo "Je serais imprime aussi !" . PHP_EOL;
         }
     }
 
-However, it's a better idea to extend :doc:`Phalcon\\Cli\\Task <../api/Phalcon_Cli_Task>` and implement this kind of logic there.
+Cependant, ce serait une meilleure idée que d'étendre :doc:`Phalcon\\Cli\\Task <../api/Phalcon_Cli_Task>` et développer ce type de logique ici.

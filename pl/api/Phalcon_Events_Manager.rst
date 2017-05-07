@@ -8,13 +8,15 @@ Class **Phalcon\\Events\\Manager**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/events/manager.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Phalcon Events Manager, offers an easy way to intercept and manipulate, if needed, the normal flow of operation. With the EventsManager the developer can create hooks or plugins that will offer monitoring of data, manipulation, conditional execution and much more.
+Phalcon Events Manager, offers an easy way to intercept and manipulate, if needed,
+the normal flow of operation. With the EventsManager the developer can create hooks or
+plugins that will offer monitoring of data, manipulation, conditional execution and much more.
 
 
 Methods
 -------
 
-public  **attach** (*string* $eventType, *object|callable* $handler, [*int* $priority])
+public  **attach** (*string* $eventType, *object* | *callable* $handler, [*int* $priority])
 
 Attach a listener to the events manager
 
@@ -26,7 +28,7 @@ Detach the listener from the events manager
 
 
 
-public  **enablePriorities** (*unknown* $enablePriorities)
+public  **enablePriorities** (*mixed* $enablePriorities)
 
 Set if priorities are enabled in the EventsManager
 
@@ -38,62 +40,58 @@ Returns if priorities are enabled
 
 
 
-public  **collectResponses** (*unknown* $collect)
+public  **collectResponses** (*mixed* $collect)
 
-Tells the event manager if it needs to collect all the responses returned by every registered listener in a single fire
+Tells the event manager if it needs to collect all the responses returned by every
+registered listener in a single fire
 
 
 
 public  **isCollecting** ()
 
-Check if the events manager is collecting all all the responses returned by every registered listener in a single fire
+Check if the events manager is collecting all all the responses returned by every
+registered listener in a single fire
 
 
 
-public *array*  **getResponses** ()
+public *array* **getResponses** ()
 
 Returns all the responses returned by every handler executed by the last 'fire' executed
 
 
 
-public  **detachAll** ([*unknown* $type])
+public  **detachAll** ([*mixed* $type])
 
 Removes all events from the EventsManager
 
 
 
-public  **dettachAll** ([*unknown* $type])
-
-Alias of detachAll
-
-
-
-final public *mixed*  **fireQueue** (*\SplPriorityQueue|array* $queue, :doc:`Phalcon\\Events\\Event <Phalcon_Events_Event>` $event)
+final public *mixed* **fireQueue** (`SplPriorityQueue <http://php.net/manual/en/class.splpriorityqueue.php>`_ | *array* $queue, :doc:`Phalcon\\Events\\Event <Phalcon_Events_Event>` $event)
 
 Internal handler to call a queue of events
 
 
 
-public *mixed*  **fire** (*string* $eventType, *object* $source, [*mixed* $data], [*boolean* $cancelable])
+public *mixed* **fire** (*string* $eventType, *object* $source, [*mixed* $data], [*boolean* $cancelable])
 
-Fires an event in the events manager causing the active listeners to be notified about it 
+Fires an event in the events manager causing the active listeners to be notified about it
 
 .. code-block:: php
 
     <?php
 
-    $eventsManager->fire('db', $connection);
+    $eventsManager->fire("db", $connection);
 
 
 
 
-public  **hasListeners** (*unknown* $type)
+public  **hasListeners** (*mixed* $type)
 
 Check whether certain type of event has listeners
 
 
 
-public *array*  **getListeners** (*string* $type)
+public *array* **getListeners** (*string* $type)
 
 Returns all the attached listeners of a certain type
 

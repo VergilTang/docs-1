@@ -1,30 +1,48 @@
 Class **Phalcon\\Di**
 =====================
 
-*implements* :doc:`Phalcon\\DiInterface <Phalcon_DiInterface>`, ArrayAccess
+*implements* :doc:`Phalcon\\DiInterface <Phalcon_DiInterface>`, `ArrayAccess <http://php.net/manual/en/class.arrayaccess.php>`_
 
 .. role:: raw-html(raw)
    :format: html
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/di.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Phalcon\\Di is a component that implements Dependency Injection/Service Location of services and it's itself a container for them.  Since Phalcon is highly decoupled, Phalcon\\Di is essential to integrate the different components of the framework. The developer can also use this component to inject dependencies and manage global instances of the different classes used in the application.  Basically, this component implements the `Inversion of Control` pattern. Applying this, the objects do not receive their dependencies using setters or constructors, but requesting a service dependency injector. This reduces the overall complexity, since there is only one way to get the required dependencies within a component.  Additionally, this pattern increases testability in the code, thus making it less prone to errors.  
+Phalcon\\Di is a component that implements Dependency Injection/Service Location
+of services and it's itself a container for them.
+
+Since Phalcon is highly decoupled, Phalcon\\Di is essential to integrate the different
+components of the framework. The developer can also use this component to inject dependencies
+and manage global instances of the different classes used in the application.
+
+Basically, this component implements the `Inversion of Control` pattern. Applying this,
+the objects do not receive their dependencies using setters or constructors, but requesting
+a service dependency injector. This reduces the overall complexity, since there is only one
+way to get the required dependencies within a component.
+
+Additionally, this pattern increases testability in the code, thus making it less prone to errors.
 
 .. code-block:: php
 
     <?php
 
-     $di = new \Phalcon\Di();
-    
-     //Using a string definition
-     $di->set("request", "Phalcon\Http\Request", true);
-    
-     //Using an anonymous function
-     $di->set("request", function(){
-      return new \Phalcon\Http\Request();
-     }, true);
-    
-     $request = $di->getRequest();
+    use Phalcon\Di;
+    use Phalcon\Http\Request;
+
+    $di = new Di();
+
+    // Using a string definition
+    $di->set("request", Request::class, true);
+
+    // Using an anonymous function
+    $di->setShared(
+        "request",
+        function () {
+            return new Request();
+        }
+    );
+
+    $request = $di->getRequest();
 
 
 
@@ -49,61 +67,65 @@ Returns the internal event manager
 
 
 
-public  **set** (*unknown* $name, *unknown* $definition, [*unknown* $shared])
+public  **set** (*mixed* $name, *mixed* $definition, [*mixed* $shared])
 
 Registers a service in the services container
 
 
 
-public  **setShared** (*unknown* $name, *unknown* $definition)
+public  **setShared** (*mixed* $name, *mixed* $definition)
 
 Registers an "always shared" service in the services container
 
 
 
-public  **remove** (*unknown* $name)
+public  **remove** (*mixed* $name)
 
-Removes a service in the services container It also removes any shared instance created for the service
-
-
-
-public  **attempt** (*unknown* $name, *unknown* $definition, [*unknown* $shared])
-
-Attempts to register a service in the services container Only is successful if a service hasn't been registered previously with the same name
+Removes a service in the services container
+It also removes any shared instance created for the service
 
 
 
-public  **setRaw** (*unknown* $name, :doc:`Phalcon\\Di\\ServiceInterface <Phalcon_Di_ServiceInterface>` $rawDefinition)
+public  **attempt** (*mixed* $name, *mixed* $definition, [*mixed* $shared])
+
+Attempts to register a service in the services container
+Only is successful if a service hasn't been registered previously
+with the same name
+
+
+
+public  **setRaw** (*mixed* $name, :doc:`Phalcon\\Di\\ServiceInterface <Phalcon_Di_ServiceInterface>` $rawDefinition)
 
 Sets a service using a raw Phalcon\\Di\\Service definition
 
 
 
-public  **getRaw** (*unknown* $name)
+public  **getRaw** (*mixed* $name)
 
 Returns a service definition without resolving
 
 
 
-public  **getService** (*unknown* $name)
+public  **getService** (*mixed* $name)
 
 Returns a Phalcon\\Di\\Service instance
 
 
 
-public  **get** (*unknown* $name, [*unknown* $parameters])
+public  **get** (*mixed* $name, [*mixed* $parameters])
 
 Resolves the service based on its configuration
 
 
 
-public *mixed*  **getShared** (*string* $name, [*array* $parameters])
+public *mixed* **getShared** (*string* $name, [*array* $parameters])
 
-Resolves a service, the resolved service is stored in the DI, subsequent requests for this service will return the same instance
+Resolves a service, the resolved service is stored in the DI, subsequent
+requests for this service will return the same instance
 
 
 
-public  **has** (*unknown* $name)
+public  **has** (*mixed* $name)
 
 Check whether the DI contains a service by a name
 
@@ -121,15 +143,15 @@ Return the services registered in the DI
 
 
 
-public  **offsetExists** (*unknown* $name)
+public  **offsetExists** (*mixed* $name)
 
 Check if a service is registered using the array syntax
 
 
 
-public *boolean*  **offsetSet** (*string* $name, *mixed* $definition)
+public  **offsetSet** (*mixed* $name, *mixed* $definition)
 
-Allows to register a shared service using the array syntax 
+Allows to register a shared service using the array syntax
 
 .. code-block:: php
 
@@ -140,9 +162,9 @@ Allows to register a shared service using the array syntax
 
 
 
-public *mixed*  **offsetGet** (*string* $name)
+public  **offsetGet** (*mixed* $name)
 
-Allows to obtain a shared service using the array syntax 
+Allows to obtain a shared service using the array syntax
 
 .. code-block:: php
 
@@ -153,13 +175,13 @@ Allows to obtain a shared service using the array syntax
 
 
 
-public  **offsetUnset** (*unknown* $name)
+public  **offsetUnset** (*mixed* $name)
 
 Removes a service from the services container using the array syntax
 
 
 
-public *mixed*  **__call** (*string* $method, [*array* $arguments])
+public  **__call** (*mixed* $method, [*mixed* $arguments])
 
 Magic method to get or set services using setters/getters
 
@@ -173,7 +195,7 @@ Set a default dependency injection container to be obtained into static methods
 
 public static  **getDefault** ()
 
-Return the lastest DI created
+Return the latest DI created
 
 
 

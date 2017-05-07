@@ -8,7 +8,8 @@ Class **Phalcon\\Http\\Response\\Cookies**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/http/response/cookies.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This class is a bag to manage the cookies A cookies bag is automatically registered as part of the 'response' service in the DI
+This class is a bag to manage the cookies
+A cookies bag is automatically registered as part of the 'response' service in the DI
 
 
 Methods
@@ -26,7 +27,7 @@ Returns the internal dependency injector
 
 
 
-public  **useEncryption** (*unknown* $useEncryption)
+public  **useEncryption** (*mixed* $useEncryption)
 
 Set if cookies in the bag must be automatically encrypted/decrypted
 
@@ -38,33 +39,36 @@ Returns if the bag is automatically encrypting/decrypting cookies
 
 
 
-public  **set** (*unknown* $name, [*unknown* $value], [*unknown* $expire], [*unknown* $path], [*unknown* $secure], [*unknown* $domain], [*unknown* $httpOnly])
+public  **set** (*mixed* $name, [*mixed* $value], [*mixed* $expire], [*mixed* $path], [*mixed* $secure], [*mixed* $domain], [*mixed* $httpOnly])
 
-Sets a cookie to be sent at the end of the request This method overrides any cookie set before with the same name
+Sets a cookie to be sent at the end of the request
+This method overrides any cookie set before with the same name
 
 
 
-public  **get** (*unknown* $name)
+public  **get** (*mixed* $name)
 
 Gets a cookie from the bag
 
 
 
-public  **has** (*unknown* $name)
+public  **has** (*mixed* $name)
 
 Check if a cookie is defined in the bag or exists in the _COOKIE superglobal
 
 
 
-public  **delete** (*unknown* $name)
+public  **delete** (*mixed* $name)
 
-Deletes a cookie by its name This method does not removes cookies from the _COOKIE superglobal
+Deletes a cookie by its name
+This method does not removes cookies from the _COOKIE superglobal
 
 
 
 public  **send** ()
 
-Sends the cookies to the client Cookies aren't sent if headers are sent in the current request
+Sends the cookies to the client
+Cookies aren't sent if headers are sent in the current request
 
 
 

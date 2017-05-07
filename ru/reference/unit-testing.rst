@@ -9,7 +9,7 @@
 
 .. code-block:: bash
 
-    composer require phpunit/phpunit
+    composer require phpunit/phpunit:^5.0
 
 
 или вручную добавить его в composer.json:
@@ -18,7 +18,7 @@
 
     {
         "require-dev": {
-            "phpunit/phpunit": "~4.5"
+            "phpunit/phpunit": "^5.0"
         }
     }
 
@@ -42,14 +42,12 @@
 
     use Phalcon\Di;
     use Phalcon\Di\FactoryDefault;
+    use Phalcon\Loader;
 
-    ini_set('display_errors',1);
+    ini_set("display_errors", 1);
     error_reporting(E_ALL);
 
-    define('ROOT_PATH', __DIR__);
-    define('PATH_LIBRARY', __DIR__ . '/../app/library/');
-    define('PATH_SERVICES', __DIR__ . '/../app/services/');
-    define('PATH_RESOURCES', __DIR__ . '/../app/resources/');
+    define("ROOT_PATH", __DIR__);
 
     set_include_path(
         ROOT_PATH . PATH_SEPARATOR . get_include_path()
@@ -60,17 +58,18 @@
 
     // Используем автозагрузчик приложений для автозагрузки классов.
     // Автозагрузка зависимостей, найденных в composer.
-    $loader = new \Phalcon\Loader();
+    $loader = new Loader();
 
     $loader->registerDirs(
-        array(
-            ROOT_PATH
-        )
+        [
+            ROOT_PATH,
+        ]
     );
 
     $loader->register();
 
     $di = new FactoryDefault();
+
     Di::reset();
 
     // здесь можно добавить любые необходимые сервисы в контейнер зависимостей
@@ -95,7 +94,7 @@
 
     {
         "require": {
-            "phalcon/incubator": "dev-master"
+            "phalcon/incubator": "^3.0"
         }
     }
 
@@ -146,19 +145,11 @@ This will run any tests under the tests/ directory.
     abstract class UnitTestCase extends PhalconTestCase
     {
         /**
-         * @var \Voice\Cache
-         */
-        protected $_cache;
-
-        /**
-         * @var \Phalcon\Config
-         */
-        protected $_config;
-
-        /**
          * @var bool
          */
         private $_loaded = false;
+
+
 
         public function setUp()
         {
@@ -182,7 +173,9 @@ This will run any tests under the tests/ directory.
         public function __destruct()
         {
             if (!$this->_loaded) {
-                throw new \PHPUnit_Framework_IncompleteTestError('Please run parent::setUp().');
+                throw new \PHPUnit_Framework_IncompleteTestError(
+                    "Please run parent::setUp()."
+                );
             }
         }
     }
@@ -202,14 +195,16 @@ This will run any tests under the tests/ directory.
     {
         public function testTestCase()
         {
-            $this->assertEquals('works',
-                'works',
-                'This is OK'
+            $this->assertEquals(
+                "works",
+                "works",
+                "This is OK"
             );
 
-            $this->assertEquals('works',
-                'works1',
-                'This will fail'
+            $this->assertEquals(
+                "works",
+                "works1",
+                "This will fail"
             );
         }
     }

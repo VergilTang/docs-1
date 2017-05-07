@@ -8,42 +8,42 @@ Class **Phalcon\\Mvc\\Model\\Message**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/mvc/model/message.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Encapsulates validation info generated before save/delete records fails  
+Encapsulates validation info generated before save/delete records fails
 
 .. code-block:: php
 
     <?php
 
     use Phalcon\Mvc\Model\Message as Message;
-    
-      class Robots extends \Phalcon\Mvc\Model
-      {
-    
+
+    class Robots extends \Phalcon\Mvc\Model
+    {
         public function beforeSave()
         {
-          if (this->name == 'Peter') {
-            text = "A robot cannot be named Peter";
-            field = "name";
-            type = "InvalidValue";
-            message = new Message(text, field, type);
-            this->appendMessage(message);
-         }
-       }
-    
-     }
+            if ($this->name === "Peter") {
+                $text  = "A robot cannot be named Peter";
+                $field = "name";
+                $type  = "InvalidValue";
+
+                $message = new Message($text, $field, $type);
+
+                $this->appendMessage($message);
+            }
+        }
+    }
 
 
 
 Methods
 -------
 
-public  **__construct** (*string* $message, [*string|array* $field], [*string* $type], [:doc:`Phalcon\\Mvc\\ModelInterface <Phalcon_Mvc_ModelInterface>` $model])
+public  **__construct** (*string* $message, [*string* | *array* $field], [*string* $type], [:doc:`Phalcon\\Mvc\\ModelInterface <Phalcon_Mvc_ModelInterface>` $model], [*int* | *null* $code])
 
 Phalcon\\Mvc\\Model\\Message constructor
 
 
 
-public  **setType** (*unknown* $type)
+public  **setType** (*mixed* $type)
 
 Sets message type
 
@@ -55,7 +55,7 @@ Returns message type
 
 
 
-public  **setMessage** (*unknown* $message)
+public  **setMessage** (*mixed* $message)
 
 Sets verbose message
 
@@ -67,7 +67,7 @@ Returns verbose message
 
 
 
-public  **setField** (*unknown* $field)
+public  **setField** (*mixed* $field)
 
 Sets field name related to message
 
@@ -85,9 +85,21 @@ Set the model who generates the message
 
 
 
+public  **setCode** (*mixed* $code)
+
+Sets code for the message
+
+
+
 public  **getModel** ()
 
 Returns the model that produced the message
+
+
+
+public  **getCode** ()
+
+Returns the message code
 
 
 

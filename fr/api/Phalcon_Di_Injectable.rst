@@ -8,7 +8,8 @@ Abstract class **Phalcon\\Di\\Injectable**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/di/injectable.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-This class allows to access services in the services container by just only accessing a public property with the same name of a registered service
+This class allows to access services in the services container by just only accessing a public property
+with the same name of a registered service
 
 
 Methods
@@ -38,7 +39,7 @@ Returns the internal event manager
 
 
 
-public  **__get** (*unknown* $propertyName)
+public  **__get** (*mixed* $propertyName)
 
 Magic method __get
 

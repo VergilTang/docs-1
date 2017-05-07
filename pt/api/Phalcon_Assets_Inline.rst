@@ -6,13 +6,13 @@ Class **Phalcon\\Assets\\Inline**
 
 :raw-html:`<a href="https://github.com/phalcon/cphalcon/blob/master/phalcon/assets/inline.zep" class="btn btn-default btn-sm">Source on GitHub</a>`
 
-Represents an inline asset  
+Represents an inline asset
 
 .. code-block:: php
 
     <?php
 
-     $inline = new \Phalcon\Assets\Inline('js', 'alert("hello world");');
+    $inline = new \Phalcon\Assets\Inline("js", "alert('hello world');");
 
 
 
@@ -45,13 +45,13 @@ Phalcon\\Assets\\Inline constructor
 
 
 
-public  **setType** (*unknown* $type)
+public  **setType** (*mixed* $type)
 
 Sets the inline's type
 
 
 
-public  **setFilter** (*unknown* $filter)
+public  **setFilter** (*mixed* $filter)
 
 Sets if the resource must be filtered or not
 
